@@ -107,7 +107,7 @@ app.get('/reindex', requireUser, function(request, response) {
   });
 });
 
-// if cookie exists, success. otherwise, user is redirected to index
+// primary page for search tweets, accessible to an authenticated user
 app.get('/success', requireUser, function(request, response) {
   response.send(nunjucks.render(
     'views/success.html',
