@@ -92,6 +92,15 @@ app.get('/login/twitter/return',
   }
 );
 
+app.get('/reindex', requireUser, function(request, response) {
+  apiHelpers.populateIndexfromTimeline(request.user, twitterClient, algoliaClient).then(function() {
+    response.redirect('/success');
+  }).catch(function(err) {
+    console.error('twitter to algolia reindexing failed', err);
+    response.redirect('/');
+  });
+});
+
 // if cookie exists, success. otherwise, user is redirected to index
 app.get('/success', requireUser, function(request, response) {
   response.send(nunjucks.render(

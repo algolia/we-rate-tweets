@@ -27,14 +27,6 @@ body {
   float: left;
 }
 
-.intro, .app {
-  min-height: calc(100vh - 80px)
-}
-
-.success .intro {
-  min-height: 0
-}
-
 .footer {
   font-size: 60%;
   bottom: 0;
@@ -64,6 +56,10 @@ input {
   background-size: contain;
   width: 18px;
   height: 18px
+}
+
+.remix-on-glitch {
+  margin-top: 25px;
 }
 
 /* Override aerial */

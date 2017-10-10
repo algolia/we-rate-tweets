@@ -29,7 +29,10 @@ const search = instantsearch({
   appId: weRateTweets.algolia.app_id,
   apiKey: weRateTweets.algolia.search_api_key,
   indexName: `tweets-${weRateTweets.user.username}`,
-  urlSync: false
+  urlSync: false,
+  searchParameters: {
+    hitsPerPage: 12
+  }
 });
 
 search.addWidget(
@@ -40,16 +43,22 @@ search.addWidget(
       item: 'flex-it-3 p-small'
     },
     templates: {
-      empty: 'No results',
+      empty: `
+        <p class='fill-white p-xlarge elevation1'>
+          <strong>No results found...</strong>
+          is this something you've tweeted about recently?
+        </p>`,
       item: function(hit) {
-        var engagementNumber = hit.favoriteCount + hit.retweetCount;
+        var engagementNumber = hit.favorite_count + hit.retweet_count;
         var engagementEmoji = calculateEngagementEmoji(engagementNumber);
         return `
           <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
             <div class="card-border-line gradient-dark"></div>
-            <a href="${hit.url}" target="_blank" class="no-decoration color-portage">
-              ${hit._highlightResult.text.value}
-            </a>
+            <p>
+              <a href="${hit.url}" target="_blank" class="no-decoration color-portage">
+                ${hit._highlightResult.text.value}
+              </a>
+            </p>
             <span class="adulationScore color-bunting">
               <i class="twitter-icon inline vertical-align-middle"></i>&nbsp; ${engagementEmoji}
             </span>

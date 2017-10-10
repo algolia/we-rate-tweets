@@ -10,8 +10,9 @@ function populateIndexfromTimeline(user, twitterClient, algoliaClient) {
   // reject if any step has an error
   return new Promise(function(resolve, reject) {
 
-    // fetch the last 200 tweets from this user, not including retweets
-    const params = { screen_name: user.username, count: 200, include_rts: false };
+    // fetch the last n tweets from this user, not including retweets
+    const tweetCount = process.env.TWEETS_TO_FETCH || 500;
+    const params = { screen_name: user.username, count: tweetCount, include_rts: false };
     twitterClient.get('statuses/user_timeline', params, function(error, tweets, response) {
       if (error) {
         reject(error);
@@ -54,9 +55,11 @@ function tweetsToAlgoliaObjects(tweets) {
       objectID: tweet.id_str,
       id: tweet.id_str,
       text: tweet.text,
-      createdAt: tweet.createdAt,
-      favoriteCount: tweet.favoriteCount,
-      retweetCount: tweet.retweetCount,
+      created_at: Date.parse(tweet.created_at) / 1000,
+      favorite_count: tweet.favorite_count,
+      retweet_count: tweet.retweet_count,
+      reply_count: tweet.reply_count,
+      quote_count: tweet.quote_count,
       url: `https://twitter.com/${tweet.user.username}/status/${tweet.id_str}`
     };
     algoliaObjects.push(algoliaObject);
@@ -71,13 +74,11 @@ function pushAlgoliaIndexSettings(index) {
       // only the text of the tweet should be searchable
       searchableAttributes: ['text'],
       // tweets should be ranked by retweet and then favorite count
-      customRanking: ['desc(retweetCount)', 'desc(favoriteCount)'],
-      // make plural and singular matches count the same for these langs
-      ignorePlurals: ['en', 'fr'],
+      customRanking: ['desc(retweet_count)', 'desc(favorite_count)', 'desc(created_at)'],
       // return these attributes by default when a search is made
-		  attributesToRetrieve: ['id', 'text', 'url', 'favoriteCount', 'retweetCount'],
-      // return 10 hits per page by default when a search is made
-		  hitsPerPage: 10
+		  attributesToRetrieve: ['id', 'text', 'url', 'favorite_count', 'retweet_count'],
+      // make plural and singular matches count the same for these langs
+      ignorePlurals: ['en', 'fr']
     }, function(err, content) {
       if (err) {
         reject(err);
