@@ -85,7 +85,11 @@ app.get('/login/twitter/return',
   function(request, response) {
     // fetch the user's twitter timeline and index it with algolia
     fetchAndIndexTweets(request, response).then(function() {
-      response.redirect('/success');
+      // it can take a few milliseconds for the records to be searchable,
+      // and we want to make sure they are when then next page loads
+      setTimeout(function() {
+        response.redirect('/success');
+      }, 1000);
     }).catch(function(err) {
       console.error('twitter to algolia failed', err);
       response.redirect('/');
