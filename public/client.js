@@ -31,13 +31,27 @@ const search = instantsearch({
   indexName: `tweets-${weRateTweets.user.username}`,
   urlSync: false,
   searchParameters: {
-    hitsPerPage: 12
+    hitsPerPage: 9
   }
 });
 
 search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-box',
+    placeholder: 'Search your tweets'
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.pagination({
+    container: '#pagination-container',
+    scrollTo: false
+  })
+);
+
+search.addWidget(
   instantsearch.widgets.hits({
-    container: '#hits',
+    container: '#hits-container',
     cssClasses: {
       root: 'list-none flex-container flex-dir-row p-small no-p-l no-p-r',
       item: 'flex-it-3 p-small'
@@ -65,13 +79,6 @@ search.addWidget(
         `;
       }
     }
-  })
-);
-
-search.addWidget(
-  instantsearch.widgets.searchBox({
-    container: '#search-box',
-    placeholder: 'Search your tweets'
   })
 );
 
