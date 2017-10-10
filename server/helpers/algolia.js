@@ -1,41 +1,31 @@
 module.exports = {
-  populateIndexfromTimeline: populateIndexfromTimeline
+  indexTweets: indexTweets
 };
 
 // fetch tweets from twitter, configure the algolia index, and
 // convert the tweets to algolia objects, and upload them to the index
-function populateIndexfromTimeline(user, twitterClient, algoliaClient) {
+function indexTweets(user, tweets, algoliaClient) {
 
   // this promise will resolve once all steps complete, or
   // reject if any step has an error
   return new Promise(function(resolve, reject) {
 
-    // fetch the last n tweets from this user, not including retweets
-    const tweetCount = process.env.TWEETS_TO_FETCH || 500;
-    const params = { screen_name: user.username, count: tweetCount, include_rts: false };
-    twitterClient.get('statuses/user_timeline', params, function(error, tweets, response) {
-      if (error) {
-        reject(error);
-        return;
-      }
+    // the algolia index name contains the user's twitter handle,
+    // so that tweets from different users remain separate
+    let algoliaIndexName = `tweets-${user.username}`;
+    let algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
 
-      // the algolia index name contains the user's twitter handle,
-      // so that tweets from different users remain separate
-      let algoliaIndexName = `tweets-${user.username}`;
-      let algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
-
-      // push the algolia index settings
-      pushAlgoliaIndexSettings(algoliaIndex).then(() => {
-        // convert tweets to algolia objects
-        let algoliaObjects = tweetsToAlgoliaObjects(tweets);
-        // add the objects in one bulk API call for best speed
-        algoliaIndex.addObjects(algoliaObjects, function(err, content) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(content);
-          }
-        });
+    // push the algolia index settings
+    pushAlgoliaIndexSettings(algoliaIndex).then(() => {
+      // convert tweets to algolia objects
+      let algoliaObjects = tweetsToAlgoliaObjects(tweets);
+      // add the objects in one bulk API call for best speed
+      algoliaIndex.addObjects(algoliaObjects, function(err, content) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(content);
+        }
       });
     });
   });

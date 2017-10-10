@@ -11,8 +11,9 @@ const passportTwitter = require('passport-twitter');
 // read environment variables
 require('dotenv').config();
 
-// put twitter and algolia functions in a separate file for readability
-const apiHelpers = require('./server/api-helpers');
+// put twitter and algolia functions in separate files for readability
+const twitterHelper = require('./server/helpers/twitter');
+const algoliaHelper = require('./server/helpers/algolia');
 
 // configure the twitter client
 const twitterClient = new Twitter({
@@ -83,7 +84,7 @@ app.get('/login/twitter/return',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function(request, response) {
     // fetch the user's twitter timeline and index it with algolia
-    apiHelpers.populateIndexfromTimeline(request.user, twitterClient, algoliaClient).then(function() {
+    fetchAndIndexTweets(request, response).then(function() {
       response.redirect('/success');
     }).catch(function(err) {
       console.error('twitter to algolia failed', err);
@@ -92,8 +93,9 @@ app.get('/login/twitter/return',
   }
 );
 
+// allow an already-authenticated user to reindex their tweets
 app.get('/reindex', requireUser, function(request, response) {
-  apiHelpers.populateIndexfromTimeline(request.user, twitterClient, algoliaClient).then(function() {
+  fetchAndIndexTweets(request, response).then(function() {
     response.redirect('/success');
   }).catch(function(err) {
     console.error('twitter to algolia reindexing failed', err);
@@ -125,3 +127,10 @@ function requireUser(req, res, next) {
     next();
   }
 };
+
+// helper function to push data from twitter to algolia
+function fetchAndIndexTweets(request, response) {
+  return twitterHelper.getTweets(request.user, twitterClient).then((tweets) => {
+    return algoliaHelper.indexTweets(request.user, tweets, algoliaClient);
+  });
+}
