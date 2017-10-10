@@ -71,9 +71,13 @@ function pushAlgoliaIndexSettings(index) {
       // only the text of the tweet should be searchable
       searchableAttributes: ['text'],
       // tweets should be ranked by retweet and then favorite count
-      customRanking: ['desc(retweetCount)','desc(favoriteCount)'],
+      customRanking: ['desc(retweetCount)', 'desc(favoriteCount)'],
       // make plural and singular matches count the same for these langs
-      ignorePlurals: ['en', 'fr']
+      ignorePlurals: ['en', 'fr'],
+      // return these attributes by default when a search is made
+		  attributesToRetrieve: ['id', 'text', 'url', 'favoriteCount', 'retweetCount'],
+      // return 10 hits per page by default when a search is made
+		  hitsPerPage: 10
     }, function(err, content) {
       if (err) {
         reject(err);

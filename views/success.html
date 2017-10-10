@@ -4,15 +4,17 @@
 <!DOCTYPE html>
 <html class="fill-titan success">
   <head>
-    <title>Success | Twitter Passport and Algolia Example</title>
-    <meta name="description" content="an example app implementing twitter oauth with passport and algolia search">
+    <title>We Rate Tweets</title>
+    <meta name="description" content="Build a search for your tweets with Algolia">
     <link id="favicon" rel="icon" href="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2Ffavicon.ico?1503498238361" type="image/x-icon">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.2.0/dist/instantsearch.min.css">
     <link rel="stylesheet" href="/aerial.css">
     <link rel="stylesheet" href="/style.css">
     <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.2.0/dist/instantsearch.min.js"></script>
   </head>
   <body class="fill-titan">
     <div class="app">
@@ -38,26 +40,34 @@
         <span class="spacer32"></span>
         <div class="searchTweets m100p pos-rel">
           <i class="icon icon-search pos-abt v-center m-l-large text-lg color-logan"></i>
-          <input autocomplete="off" name="hidden" type="text" style="display:none;" class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn" placeholder="search keyword for your tweets">
+          <input id="search-box" autocomplete="off" name="hidden" type="text" class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn">
         </div>
         <span class="spacer32"></span>
-        <ul id="tweetSearchResults">
-        </ul>
+        <div id="hits"></div>
+        <span class="spacer32"></span>
+        <a href="/logout">Logout</a>
       </div>
 
       <span class="spacer64"></span>
-      <div class="footer pos-abt w100p color-white  gradient-dark p-large  no-p-t no-p-b h80">
+      <div class="footer pos-rel w100p color-white  gradient-dark p-large  no-p-t no-p-b h80">
         <span class="spacer32"></span>
         <p class="vertical-align-middle">Made with 💖 by Algolia</p>
       </div>
-
-      <a href="/logout">Logout</a>
     </div>
+
     <script>
-      window.we_rate_tweets = { username: "{{ user.username }}" };
+      // make username and algolia app info available on the client
+      window.weRateTweets = {
+        user: {
+          username: "{{ user.username }}"
+        },
+        algolia: {
+          app_id: "{{ algolia.app_id }}",
+          search_api_key: "{{ algolia.search_api_key }}"
+        }
+      };
     </script>
     <script src="/client.js"></script>
-    <script src="/search.js"></script>
   </body>
 
 </html>

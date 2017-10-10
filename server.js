@@ -25,7 +25,7 @@ const twitterClient = new Twitter({
 // create the algolia client from env variables
 const algoliaClient = algoliasearch(
   process.env.ALGOLIA_APP_ID,
-  process.env.ALGOLIA_ADMIN_KEY);
+  process.env.ALGOLIA_ADMIN_API_KEY);
 
 // use passport for twitter oauth authentication
 // pass appropriate keys for twitter authentication
@@ -96,7 +96,11 @@ app.get('/login/twitter/return',
 app.get('/success', requireUser, function(request, response) {
   response.send(nunjucks.render(
     'views/success.html',
-    { user: request.user }
+    { user: request.user,
+      algolia: {
+        app_id: process.env.ALGOLIA_APP_ID,
+        search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
+    } }
   ));
 });
 
