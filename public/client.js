@@ -49,8 +49,6 @@ search.addWidget(
           is this something you've tweeted about recently?
         </p>`,
       item: function(hit) {
-        var engagementNumber = hit.favorite_count + hit.retweet_count;
-        var engagementEmoji = calculateEngagementEmoji(engagementNumber);
         return `
           <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
             <div class="card-border-line gradient-dark"></div>
@@ -60,7 +58,8 @@ search.addWidget(
               </a>
             </p>
             <span class="adulationScore color-bunting">
-              <i class="twitter-icon inline vertical-align-middle"></i>&nbsp; ${engagementEmoji}
+              <i class="twitter-icon inline vertical-align-middle"></i>
+              &nbsp; ${calculateEngagementEmoji(hit.total_count)}
             </span>
           </div>
         `;

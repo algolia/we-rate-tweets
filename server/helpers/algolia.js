@@ -48,8 +48,7 @@ function tweetsToAlgoliaObjects(tweets) {
       created_at: Date.parse(tweet.created_at) / 1000,
       favorite_count: tweet.favorite_count,
       retweet_count: tweet.retweet_count,
-      reply_count: tweet.reply_count,
-      quote_count: tweet.quote_count,
+      total_count: tweet.retweet_count + tweet.favorite_count,
       url: `https://twitter.com/${tweet.user.username}/status/${tweet.id_str}`
     };
     algoliaObjects.push(algoliaObject);
@@ -63,10 +62,15 @@ function pushAlgoliaIndexSettings(index) {
     index.setSettings({
       // only the text of the tweet should be searchable
       searchableAttributes: ['text'],
-      // tweets should be ranked by retweet and then favorite count
-      customRanking: ['desc(retweet_count)', 'desc(favorite_count)', 'desc(created_at)'],
-      // return these attributes by default when a search is made
-		  attributesToRetrieve: ['id', 'text', 'url', 'favorite_count', 'retweet_count'],
+      // only highlight results in the text field
+      attributesToHighlight: ['text'],
+      // tweets will be ranked by total count with retweets
+      // counting more that other interactions, falling back to date
+      customRanking: [
+        'desc(total_count)', 'desc(retweet_count)', 'desc(created_at)'],
+      // return these attributes for dislaying in search results
+		  attributesToRetrieve: [
+        'text', 'url', 'retweet_count', 'total_count'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
     }, function(err, content) {
