@@ -76,10 +76,10 @@ app.get('/logout', function(request, response) {
   response.redirect('/');
 });
 
-// authenticate with Twitter
+// send to twitter to authenticate
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
-// redirect to setcookie following a successful OAuth callback
+// receive authenticated twitter user and index tweets
 app.get('/login/twitter/return',
   passport.authenticate('twitter', { failureRedirect: '/' }),
   function(request, response) {
