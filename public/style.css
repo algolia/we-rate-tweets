@@ -78,6 +78,7 @@ input {
 
 .ais-hits em {
   background: yellow;
+  font-style: normal;
 }
 
 .ais-search-box--reset {
