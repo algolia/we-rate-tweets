@@ -69,7 +69,7 @@ function pushAlgoliaIndexSettings(index) {
       customRanking: [
         'desc(total_count)', 'desc(retweet_count)', 'desc(created_at)'],
       // return these attributes for dislaying in search results
-		  attributesToRetrieve: [
+      attributesToRetrieve: [
         'text', 'url', 'retweet_count', 'total_count'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
