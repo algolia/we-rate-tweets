@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const algoliasearch = require('algoliasearch');
 const passportTwitter = require('passport-twitter');
 
-// read environment variables
+// read environment variables (only necessary locally, not on Glitch)
 require('dotenv').config();
 
 // put twitter and algolia functions in separate files for readability
