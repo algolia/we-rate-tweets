@@ -60,6 +60,12 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// don't cache templates b/c server restart is needed to pickup changes
+// when running local not on glitch
+nunjucks.configure('views', {
+  app: app, noCache: true
+});
+
 // only run this section this if not on glitch
 if (!process.env.PROJECT_DOMAIN) {
   // reload a connected HTML page automatically if HTML/CSS/JS changes
@@ -68,11 +74,6 @@ if (!process.env.PROJECT_DOMAIN) {
   const reloadServer = reload(app);
   watch.watchTree(__dirname + '/public', reloadServer.reload);
   watch.watchTree(__dirname + '/views', reloadServer.reload);
-
-  // don't cache templates b/c server restart is needed to pickup changes
-  nunjucks.configure('views', {
-    app: app, noCache: true
-  });
 }
 
 // index route
