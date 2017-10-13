@@ -22,8 +22,15 @@
         <span class="spacer32"></span>
         <div id="pagination-container"></div>
         <span class="spacer32"></span>
-        <a href="/patience">Index latest tweets</a> &middot;
-        <a href="/logout">Logout</a>
+        <a target="_blank" href="/{{ request.username }}/tweets">Shareable link</a> &middot;
+        {% if request.username == user.username %}
+          <a href="/patience">Index latest tweets</a> &middot;
+        {% endif %}
+        {% if user.username %}
+          <a href="/logout">Logout</a>
+        {% else %}
+          <a href="/">Rate your own tweets</a>
+        {% endif %}
       </div>
       <span class="spacer64"></span>
       <div class="footer pos-rel w100p color-white  gradient-dark p-large no-p-t no-p-b h80">
@@ -34,10 +41,14 @@
     <script>
       // make username and algolia app info available on the client
       window.weRateTweets = {
+        request: {
+          username: "{{ request.username }}"
+        },
         user: {
           username: "{{ user.username }}"
         },
         algolia: {
+          index_name: "{{ algolia.index_name }}",
           app_id: "{{ algolia.app_id }}",
           search_api_key: "{{ algolia.search_api_key }}"
         }

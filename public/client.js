@@ -1,15 +1,11 @@
 // the object set by the server containing valuable configuration info
 const weRateTweets = window.weRateTweets;
 
-// just like on the server, the index contains the twitter username
-// this allows multiple users to use the app but only see their own tweets
-const indexName = `tweets-${weRateTweets.user.username}`;
-
 // create an instantsearch instance with our app id and api key
 const search = instantsearch({
   appId: weRateTweets.algolia.app_id,
   apiKey: weRateTweets.algolia.search_api_key,
-  indexName: indexName,
+  indexName: weRateTweets.algolia.index_name,
   urlSync: false,
   searchParameters: {
     hitsPerPage: 9

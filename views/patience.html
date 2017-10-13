@@ -30,7 +30,7 @@
     </div>
     <script type="text/javascript">
       // wait at least 2 seconds before animating the next step
-      var fetchPromise = fetch('/tweets/index', { method: 'POST' });
+      var fetchPromise = fetch('/tweets/index', { method: 'POST', credentials: 'include' });
       var timePromise = new Promise(function(resolve, reject) {
         setTimeout(function() { resolve(); }, 2000);
       });

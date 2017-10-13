@@ -81,7 +81,7 @@ app.get('/', (request, response) => {
 });
 
 // processing route, for the user to wait while we index tweets
-app.get('/patience', (request, response) => {
+app.get('/patience', requireUser, (request, response) => {
   response.send(nunjucks.render('patience.html'));
 });
 
@@ -114,11 +114,12 @@ app.post('/tweets/index', requireUser, (request, response) => {
 
 // primary page for search tweets, accessible to an authenticated user
 app.get('/tweets', requireUser, (request, response) => {
-  response.send(nunjucks.render('tweets.html', { user: request.user,
-    algolia: {
-      app_id: process.env.ALGOLIA_APP_ID,
-      search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
-    } }));
+  renderTweetsPageForUsername(request.user.username, request, response);
+});
+
+// page for shared tweets, accessible to anyone
+app.get('/:username/tweets', (request, response) => {
+  renderTweetsPageForUsername(request.params.username, request, response);
 });
 
 // listen for requests :)
@@ -138,5 +139,27 @@ function requireUser(request, response, next) {
 function fetchAndIndexTweets(request, response) {
   return twitterHelper.getTweets(request.user, twitterClient).then(tweets => {
     return algoliaHelper.indexTweets(request.user, tweets, algoliaClient);
+  });
+}
+
+// render the tweets page for the username passed in,
+// which might be the authenticated user or a user specified in request params
+function renderTweetsPageForUsername(username, request, response) {
+  // check first to make sure the index exists by making an empty query
+  // if the index doesn't exist, serve a 404
+  algoliaHelper.queryIndex("", { username: username }, algoliaClient).then(() => {
+    response.send(nunjucks.render('tweets.html', {
+      user: request.user,
+      request: {
+        username: username
+      },
+      algolia: {
+        index_name: `tweets-${username}`,
+        app_id: process.env.ALGOLIA_APP_ID,
+        search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
+      } }));
+  }).catch((err) => {
+    console.log(err);
+    response.status(404).send("Not found");
   });
 }

@@ -3,7 +3,8 @@ const urlRegex = /(?:https?|ftp):\/\/[\n\S]+/g;
 
 module.exports = {
   indexTweets: indexTweets,
-  pushAlgoliaIndexSettings: pushAlgoliaIndexSettings
+  pushAlgoliaIndexSettings: pushAlgoliaIndexSettings,
+  queryIndex: queryIndex
 };
 
 // fetch tweets from twitter, configure the algolia index, and
@@ -22,6 +23,25 @@ function indexTweets(user, tweets, algoliaClient) {
     var algoliaObjects = tweetsToAlgoliaObjects(tweets);
     // add the objects in one bulk API call for best speed
     algoliaIndex.addObjects(algoliaObjects, (err, content) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(content);
+      }
+    });
+  });
+}
+
+// query the index of this user's tweets
+function queryIndex(query, user, algoliaClient) {
+
+  // the algolia index name contains the user's twitter handle,
+  var algoliaIndexName = 'tweets-' + user.username;
+  var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
+
+  // return a promise that will fail if the index doesn't exist
+  return new Promise((resolve, reject) => {
+    algoliaIndex.search({ query: query }, (err, content) => {
       if (err) {
         reject(err);
       } else {
