@@ -1,7 +1,7 @@
 {
-  "name": "twitter-passport-example",
+  "name": "we-rate-tweets",
   "version": "0.0.1",
-  "description": "an example app implementing twitter oauth with passport",
+  "description": "Search and get ratings for tweets with Algolia",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -30,5 +30,12 @@
     "search",
     "algolia",
     "axios"
-  ]
+  ],
+  "devDependencies": {
+    "reload": "^2.2.2",
+    "watch": "^1.0.2"
+  },
+  "nodemonConfig": {
+    "watch": ["server.js", "server"]
+  }
 }

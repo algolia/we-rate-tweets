@@ -8,8 +8,11 @@ const cookieParser = require('cookie-parser');
 const algoliasearch = require('algoliasearch');
 const passportTwitter = require('passport-twitter');
 
-// read environment variables (only necessary locally, not on Glitch)
-require('dotenv').config();
+// only do if not running on glitch
+if (!process.env.PROJECT_DOMAIN) {
+  // read environment variables (only necessary locally, not on Glitch)
+  require('dotenv').config();
+}
 
 // put twitter and algolia functions in separate files for readability
 const twitterHelper = require('./server/helpers/twitter');
@@ -57,9 +60,27 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// only run this section this if not on glitch
+if (!process.env.PROJECT_DOMAIN) {
+  // reload a connected HTML page automatically if HTML/CSS/JS changes
+  const reload = require('reload');
+  const watch = require('watch');
+  const reloadServer = reload(app);
+  function _reload(f) {
+    reloadServer.reload();
+  }
+  watch.watchTree(__dirname + '/public', _reload);
+  watch.watchTree(__dirname + '/views', _reload);
+
+  // don't cache templates b/c server restart is needed to pickup changes
+  nunjucks.configure('views', {
+    app: app, noCache: true
+  });
+}
+
 // index route
 app.get('/', function (request, response) {
-  response.send(nunjucks.render('views/index.html'));
+  response.send(nunjucks.render('index.html'));
 });
 
 // clear the cookie if the user logs off
@@ -98,7 +119,7 @@ app.get('/reindex', requireUser, function (request, response) {
 
 // primary page for search tweets, accessible to an authenticated user
 app.get('/success', requireUser, function (request, response) {
-  response.send(nunjucks.render('views/success.html', { user: request.user,
+  response.send(nunjucks.render('success.html', { user: request.user,
     algolia: {
       app_id: process.env.ALGOLIA_APP_ID,
       search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
