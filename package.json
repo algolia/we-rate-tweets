@@ -32,10 +32,14 @@
     "axios"
   ],
   "devDependencies": {
+    "emoji-regex": "^6.5.1",
     "reload": "^2.2.2",
     "watch": "^1.0.2"
   },
   "nodemonConfig": {
-    "watch": ["server.js", "server"]
+    "watch": [
+      "server.js",
+      "server"
+    ]
   }
 }

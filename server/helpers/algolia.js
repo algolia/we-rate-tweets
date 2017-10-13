@@ -1,3 +1,5 @@
+const emojiRegex = require('emoji-regex')();
+
 module.exports = {
   indexTweets: indexTweets
 };
@@ -37,13 +39,15 @@ function tweetsToAlgoliaObjects(tweets) {
   // iterate over tweets and build the algolia record
   for (var i = 0; i < tweets.length; i++) {
     var tweet = tweets[i];
+    var text = tweet.text;
+    var cleanText = text.replace(emojiRegex, '');
     var algoliaObject = {
       // use id_str not id (an int), as this int gets truncated in JS
       // the objectID is the key for the algolia record, and mapping
       // tweet id to object ID guarantees only one copy of the tweet in algolia
       objectID: tweet.id_str,
       id: tweet.id_str,
-      text: tweet.text,
+      text: cleanText,
       created_at: Date.parse(tweet.created_at) / 1000,
       favorite_count: tweet.favorite_count,
       retweet_count: tweet.retweet_count,
