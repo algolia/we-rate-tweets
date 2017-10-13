@@ -91,16 +91,19 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 
 // receive authenticated twitter user and index tweets
 app.get('/login/twitter/return', passport.authenticate('twitter', { failureRedirect: '/' }), (request, response) => {
-  // fetch the user's twitter timeline and index it with algolia
-  fetchAndIndexTweets(request, response).then(() => {
-    // it can take a few milliseconds for the records to be searchable,
-    // and we want to make sure they are when then next page loads
-    setTimeout(() => {
-      response.redirect('/success');
-    }, 1000);
+  // create and configure the algolia index
+  algoliaHelper.pushAlgoliaIndexSettings(request.user, algoliaClient).then(() => {
+    // fetch the user's twitter timeline and index it with algolia
+    return fetchAndIndexTweets(request, response).then(() => {
+      // it can take a few milliseconds for the records to be searchable,
+      // and we want to make sure they are when then next page loads
+      setTimeout(() => {
+        response.redirect('/success');
+      }, 1000);
+    });
   }).catch((err) => {
     console.error('twitter to algolia failed', err);
-    response.redirect('/');
+    response.status(500).send("Failure fetching and indexing tweets :( Check the logs for more information.");
   });
 });
 
