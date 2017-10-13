@@ -53,8 +53,10 @@ search.addWidget(
           <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
             <div class="card-border-line gradient-dark"></div>
             <p>
+              <span>${hit._highlightResult.text.value}</span>
+              <br>
               <a href="${hit.url}" target="_blank" class="no-decoration color-portage">
-                ${hit._highlightResult.text.value}
+                ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
               </a>
             </p>
             <span class="adulationScore color-bunting">

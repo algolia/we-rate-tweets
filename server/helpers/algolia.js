@@ -71,7 +71,7 @@ function pushAlgoliaIndexSettings(index) {
       // counting more that other interactions, falling back to date
       customRanking: ['desc(total_count)', 'desc(retweet_count)', 'desc(created_at)'],
       // return these attributes for dislaying in search results
-      attributesToRetrieve: ['text', 'url', 'retweet_count', 'total_count'],
+      attributesToRetrieve: ['text', 'url', 'created_at', 'retweet_count', 'total_count'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
     }, (err, content) => {
