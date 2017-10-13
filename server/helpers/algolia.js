@@ -7,7 +7,7 @@ module.exports = {
 function indexTweets(user, tweets, algoliaClient) {
   // this promise will resolve once all steps complete, or
   // reject if any step has an error
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
 
     // the algolia index name contains the user's twitter handle,
     // so that tweets from different users remain separate
@@ -15,11 +15,11 @@ function indexTweets(user, tweets, algoliaClient) {
     var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
 
     // push the algolia index settings
-    pushAlgoliaIndexSettings(algoliaIndex).then(function () {
+    pushAlgoliaIndexSettings(algoliaIndex).then(() => {
       // convert tweets to algolia objects
       var algoliaObjects = tweetsToAlgoliaObjects(tweets);
       // add the objects in one bulk API call for best speed
-      algoliaIndex.addObjects(algoliaObjects, function (err, content) {
+      algoliaIndex.addObjects(algoliaObjects, (err, content) => {
         if (err) {
           reject(err);
         } else {
@@ -57,7 +57,7 @@ function tweetsToAlgoliaObjects(tweets) {
 
 // algolia index settings can be set via the API
 function pushAlgoliaIndexSettings(index) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     index.setSettings({
       // only the text of the tweet should be searchable
       searchableAttributes: ['text'],
@@ -70,7 +70,7 @@ function pushAlgoliaIndexSettings(index) {
       attributesToRetrieve: ['text', 'url', 'retweet_count', 'total_count'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
-    }, function (err, content) {
+    }, (err, content) => {
       if (err) {
         reject(err);
       } else {

@@ -36,13 +36,13 @@ passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: process.env.PROJECT_DOMAIN ? `https://${process.env.PROJECT_DOMAIN}.glitch.me/login/twitter/return` : 'http://localhost:3000/login/twitter/return'
-}, function (token, tokenSecret, profile, cb) {
+}, (token, tokenSecret, profile, cb) => {
   return cb(null, profile);
 }));
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.username);
 });
-passport.deserializeUser(function (username, done) {
+passport.deserializeUser((username, done) => {
   done(null, { username: username });
 });
 
@@ -66,11 +66,8 @@ if (!process.env.PROJECT_DOMAIN) {
   const reload = require('reload');
   const watch = require('watch');
   const reloadServer = reload(app);
-  function _reload(f) {
-    reloadServer.reload();
-  }
-  watch.watchTree(__dirname + '/public', _reload);
-  watch.watchTree(__dirname + '/views', _reload);
+  watch.watchTree(__dirname + '/public', reloadServer.reload);
+  watch.watchTree(__dirname + '/views', reloadServer.reload);
 
   // don't cache templates b/c server restart is needed to pickup changes
   nunjucks.configure('views', {
@@ -79,12 +76,12 @@ if (!process.env.PROJECT_DOMAIN) {
 }
 
 // index route
-app.get('/', function (request, response) {
+app.get('/', (request, response) => {
   response.send(nunjucks.render('index.html'));
 });
 
 // clear the cookie if the user logs off
-app.get('/logout', function (request, response) {
+app.get('/logout', (request, response) => {
   request.logout();
   response.redirect('/');
 });
@@ -93,32 +90,32 @@ app.get('/logout', function (request, response) {
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 // receive authenticated twitter user and index tweets
-app.get('/login/twitter/return', passport.authenticate('twitter', { failureRedirect: '/' }), function (request, response) {
+app.get('/login/twitter/return', passport.authenticate('twitter', { failureRedirect: '/' }), (request, response) => {
   // fetch the user's twitter timeline and index it with algolia
-  fetchAndIndexTweets(request, response).then(function () {
+  fetchAndIndexTweets(request, response).then(() => {
     // it can take a few milliseconds for the records to be searchable,
     // and we want to make sure they are when then next page loads
-    setTimeout(function () {
+    setTimeout(() => {
       response.redirect('/success');
     }, 1000);
-  }).catch(function (err) {
+  }).catch((err) => {
     console.error('twitter to algolia failed', err);
     response.redirect('/');
   });
 });
 
 // allow an already-authenticated user to reindex their tweets
-app.get('/reindex', requireUser, function (request, response) {
-  fetchAndIndexTweets(request, response).then(function () {
+app.get('/reindex', requireUser, (request, response) => {
+  fetchAndIndexTweets(request, response).then(() => {
     response.redirect('/success');
-  }).catch(function (err) {
+  }).catch((err) => {
     console.error('twitter to algolia reindexing failed', err);
     response.redirect('/');
   });
 });
 
 // primary page for search tweets, accessible to an authenticated user
-app.get('/success', requireUser, function (request, response) {
+app.get('/success', requireUser, (request, response) => {
   response.send(nunjucks.render('success.html', { user: request.user,
     algolia: {
       app_id: process.env.ALGOLIA_APP_ID,
@@ -127,7 +124,7 @@ app.get('/success', requireUser, function (request, response) {
 });
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(process.env.PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
