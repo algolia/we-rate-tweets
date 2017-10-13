@@ -62,7 +62,7 @@ function pushAlgoliaIndexSettings(user, algoliaClient) {
 
     algoliaIndex.setSettings({
       // only the text of the tweet should be searchable
-      searchableAttributes: ['text'],
+      searchableAttributes: ['unordered(text)'],
       // only highlight results in the text field
       attributesToHighlight: ['text'],
       // tweets will be ranked by total count with retweets
