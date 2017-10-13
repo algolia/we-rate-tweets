@@ -45,22 +45,27 @@ search.addWidget(
         </p>`,
       // this is the main template, each search hit is passed into it
       item: function(hit) {
-        return `
-          <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
-            <div class="card-border-line gradient-dark"></div>
-            <p>
-              <span>${hit._highlightResult.text.value}</span>
-              <br>
-              <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
-                ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
-              </a>
-            </p>
-            <span class="adulationScore color-bunting">
-              <i class="twitter-icon inline vertical-align-middle"></i>
-              &nbsp; ${calculateEngagementEmoji(hit.total_count)}
-            </span>
-          </div>
-        `;
+        try {
+          return `
+            <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
+              <div class="card-border-line gradient-dark"></div>
+              <p>
+                <span>${hit._highlightResult.text.value}</span>
+                <br>
+                <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
+                  ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
+                </a>
+              </p>
+              <span class="adulationScore color-bunting">
+                <i class="twitter-icon inline vertical-align-middle"></i>
+                &nbsp; ${calculateEngagementEmoji(hit.total_count)}
+              </span>
+            </div>
+          `;
+        } catch (e) {
+          console.warn("Couldn't render hit", hit, e);
+          return "";
+        }
       }
     }
   })
