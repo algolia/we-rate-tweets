@@ -7,9 +7,9 @@
     <div class="app">
       {% include "partials/logo.html" %}
       <div class="m1200 w100p m-l-r-auto">
-        <h3>Type in the search box to find tweets and filter results.</h3>
+        <h2>search @{{ request.username }}'s tweets to see ratings</h2>
         <p>
-          <em>An example would be searching "dogs" to see how often you talk about those amazing animals.</em>
+          <em>An example would be searching "dogs" to see how often they talk about those amazing animals.</em>
         </p>
         <span class="spacer8"></span>
         <div id="stats-container" class="text-right text-sm text-muted"></div>
@@ -23,41 +23,33 @@
         <span class="spacer32"></span>
         <div id="pagination-container"></div>
         <span class="spacer32"></span>
-        <a target="_blank" href="/{{ request.username }}/tweets">Shareable link</a> &middot;
+        <a target="_blank" href="/{{ request.username }}/tweets/search">
+          Shareable link
+        </a> &middot;
         {% if request.username == user.username %}
-          <a href="/patience">Index latest tweets</a> &middot;
+          <a href="/tweets/indexing">Index latest tweets</a> &middot;
         {% endif %}
         {% if user.username %}
           {% if request.username != user.username %}
-            <a href="/tweets">My tweets</a> &middot;
+            <a href="/tweets/search">My tweets</a> &middot;
           {% endif %}
           <a href="/logout">Logout</a>
         {% else %}
           <a href="/">Rate your own tweets</a>
         {% endif %}
+        <span class="spacer32"></span>
+        <p class="text-center">
+          <input id="other-user-input" type="text" style="background: none" class="w200 fill-white radius6 b-n p-small p-l-small otn"
+            placeholder="@otheruser">
+          <btn id="other-user-button" class="btn btn-static-white">Go</btn>
+        </p>
       </div>
-      <span class="spacer64"></span>
+      <span class="spacer32"></span>
       <div class="footer pos-rel w100p color-white gradient-dark p-large no-p-t no-p-b h80">
         {% include "partials/footer.html" %}
       </div>
     </div>
-
-    <script>
-      // make username and algolia app info available on the client
-      window.weRateTweets = {
-        request: {
-          username: "{{ request.username }}"
-        },
-        user: {
-          username: "{{ user.username }}"
-        },
-        algolia: {
-          index_name: "{{ algolia.index_name }}",
-          app_id: "{{ algolia.app_id }}",
-          search_api_key: "{{ algolia.search_api_key }}"
-        }
-      };
-    </script>
-    <script src="/client.js"></script>
+    {% include "partials/variables.html" %}
+    <script src="/tweets/search.js"></script>
   </body>
 </html>

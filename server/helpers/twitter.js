@@ -13,20 +13,20 @@ const MAX_TWEETS_PER_FETCH = 200;
 const NUMBER_OF_TWEETS_TO_FETCH = process.env.NUMBER_OF_TWEETS_TO_FETCH || 400;
 
 // fetch tweets from the twitter API
-function getTweets(user, twitterClient) {
+function getTweets(username, twitterClient) {
   const iterations = Math.ceil(NUMBER_OF_TWEETS_TO_FETCH / MAX_TWEETS_PER_FETCH);
-  return getTweetsOlderThan([], iterations, -1, user, twitterClient);
+  return getTweetsOlderThan([], iterations, -1, username, twitterClient);
 }
 
 // recursive method that runs iterationsLeft number of times, adding tweets found
 // to an array, changing the max_id value to keep getting older tweets
-function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, user, twitterClient) {
+function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, username, twitterClient) {
   return new Promise(function (resolve, reject) {
     if (iterationsLeft === 0) {
       resolve(allTweets);
       return;
     }
-    var params = { screen_name: user.username, count: MAX_TWEETS_PER_FETCH, include_rts: false };
+    var params = { screen_name: username, count: MAX_TWEETS_PER_FETCH, include_rts: false };
     if (maxTweetId > -1) {
       params.max_id = maxTweetId;
     }
@@ -37,7 +37,7 @@ function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, user, twitter
       }
       allTweets.push(...tweets);
       var oldestTweet = tweets[tweets.length - 1];
-      getTweetsOlderThan(allTweets, iterationsLeft - 1, oldestTweet.id_str, user, twitterClient).then(() => {
+      getTweetsOlderThan(allTweets, iterationsLeft - 1, oldestTweet.id_str, username, twitterClient).then(() => {
         resolve(allTweets);
       }).catch((err) => {
         reject(err);

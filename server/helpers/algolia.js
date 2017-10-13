@@ -2,21 +2,22 @@ const emojiRegex = require('emoji-regex')();
 const urlRegex = /(?:https?|ftp):\/\/[\n\S]+/g;
 
 module.exports = {
+  queryIndex: queryIndex,
   indexTweets: indexTweets,
-  pushAlgoliaIndexSettings: pushAlgoliaIndexSettings,
-  queryIndex: queryIndex
+  configureIndex: configureIndex
 };
 
 // fetch tweets from twitter, configure the algolia index, and
 // convert the tweets to algolia objects, and upload them to the index
-function indexTweets(user, tweets, algoliaClient) {
+function indexTweets(username, tweets, algoliaClient) {
+
   // this promise will resolve once all steps complete, or
   // reject if any step has an error
   return new Promise((resolve, reject) => {
 
     // the algolia index name contains the user's twitter handle,
     // so that tweets from different users remain separate
-    var algoliaIndexName = 'tweets-' + user.username;
+    var algoliaIndexName = indexName(username);
     var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
 
     // convert tweets to algolia objects
@@ -33,14 +34,12 @@ function indexTweets(user, tweets, algoliaClient) {
 }
 
 // query the index of this user's tweets
-function queryIndex(query, user, algoliaClient) {
-
-  // the algolia index name contains the user's twitter handle,
-  var algoliaIndexName = 'tweets-' + user.username;
-  var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
-
-  // return a promise that will fail if the index doesn't exist
+function queryIndex(query, username, algoliaClient) {
   return new Promise((resolve, reject) => {
+
+    // the algolia index name contains the user's twitter handle,
+    var algoliaIndexName = indexName(username);
+    var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
     algoliaIndex.search({ query: query }, (err, content) => {
       if (err) {
         reject(err);
@@ -52,12 +51,12 @@ function queryIndex(query, user, algoliaClient) {
 }
 
 // algolia index settings can be set via the API
-function pushAlgoliaIndexSettings(user, algoliaClient) {
+function configureIndex(username, algoliaClient) {
   return new Promise((resolve, reject) => {
 
     // the algolia index name contains the user's twitter handle,
     // so that tweets from different users remain separate
-    var algoliaIndexName = 'tweets-' + user.username;
+    var algoliaIndexName = indexName(username);
     var algoliaIndex = algoliaClient.initIndex(algoliaIndexName);
 
     algoliaIndex.setSettings({
@@ -113,4 +112,8 @@ function tweetsToAlgoliaObjects(tweets) {
     }
   }
   return algoliaObjects;
+}
+
+function indexName(username) {
+  return `tweets-${username}`
 }

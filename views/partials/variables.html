@@ -1,0 +1,16 @@
+<script>
+  // make username and algolia app info available on the client
+  window.weRateTweets = {
+    request: {
+      username: "{{ request.username }}"
+    },
+    user: {
+      username: "{{ user.username }}"
+    },
+    algolia: {
+      index_name: "{{ algolia.index_name }}",
+      app_id: "{{ algolia.app_id }}",
+      search_api_key: "{{ algolia.search_api_key }}"
+    }
+  };
+</script>

@@ -63,7 +63,7 @@ search.addWidget(
                   ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
                 </a>
               </p>
-              <span class="adulationScore color-bunting">
+              <span class="color-bunting">
                 <i class="twitter-icon inline vertical-align-middle"></i>
                 &nbsp; ${calculateEngagementEmoji(hit.total_count)}
               </span>
@@ -80,6 +80,15 @@ search.addWidget(
 
 // kick off the first search
 search.start();
+
+// wire up the other user button
+document.getElementById('other-user-button').onclick = function(event) {
+  var value = document.getElementById('other-user-input').value;
+  if (value) {
+    value = value.replace(/@/, '');
+    document.location.href = '/' + value + '/tweets/indexing';
+  }
+}
 
 // helper functions
 

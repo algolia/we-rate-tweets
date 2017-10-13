@@ -3,7 +3,7 @@
 ### What is this used for?
 We use Twitter authenticate a user, on successful authentication of a user we kick off a series of actions prior to bringing the user to a success page with a cookie set.
 
-Once we receive success we kick of a series of promises with fetchAndIndexTweets that takes the username from the parameters of the successful authentication. This calls getTweets starts a call with a promise to Twitter's GET_USER_TIMELINE to grab the user's last 200 tweets. Once we successfully receive the timeline, we resolve with another promise to indexTweets which takes in our Twitter username, our response from Twitter and the Algolia client. We initiate an index specifically for that user named from their username; push the settings via pushAlgoliaIndexSettings and then we iterate over the tweets to build and push objects for Algolia. Once this is complete, we render our success page and a user is able to start searching their top tweets.
+Once we receive success we kick of a series of promises with fetchAndIndexTweets that takes the username from the parameters of the successful authentication. This calls getTweets starts a call with a promise to Twitter's GET_USER_TIMELINE to grab the user's last 200 tweets. Once we successfully receive the timeline, we resolve with another promise to indexTweets which takes in our Twitter username, our response from Twitter and the Algolia client. We initiate an index specifically for that user named from their username; push the settings via configureIndex and then we iterate over the tweets to build and push objects for Algolia. Once this is complete, we render our success page and a user is able to start searching their top tweets.
 
 # How to Remix into your own! 🎏
 - Hit that sweet sweet remix link 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "partials/header.html" %}
+  </head>
+  <body class="fill-titan">
+    <div class="app">
+      {% include "partials/logo.html" %}
+      <div id='please-stand-by'>
+        <h3>Please stand by while we index and rate @{{ request.username }}'s tweets...</h3>
+      </div>
+      <div id='yay-success' style='display: none;'>
+        <h3>
+          <strong>Success!</strong>
+          @{{ request.username }}'s most recent tweets have been indexed with Algolia and rated
+          <br>
+          according to our <strong>unique Base 10-based formula</strong>.
+        </h3>
+        <span class="spacer32"></span>
+        <p>
+          <a href="/{{ request.username }}/tweets/search" class="btn btn-static-dark">
+            &raquo;&nbsp; See how @{{ request.username }}'s tweets rate
+          </a>
+        </p>
+      </div>
+      <span class="spacer64"></span>
+      <img class="georges" height="75" src="/images/georges.svg">
+      &nbsp;
+      <img class="elisabeth" height="100" src="/images/elisabeth.svg">
+      <span class="spacer64"></span>
+      <div class="footer pos-abt w100p color-white gradient-dark p-large no-p-t no-p-b h80">
+        {% include "partials/footer.html" %}
+      </div>
+    </div>
+    {% include "partials/variables.html" %}
+    <script src="/tweets/indexing.js"></script>
+  </body>
+</html>
