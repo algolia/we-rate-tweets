@@ -66,16 +66,6 @@ nunjucks.configure('views', {
   app: app, noCache: true
 });
 
-// only run this section this if not on glitch
-if (!process.env.PROJECT_DOMAIN) {
-  // reload a connected HTML page automatically if HTML/CSS/JS changes
-  const reload = require('reload');
-  const watch = require('watch');
-  const reloadServer = reload(app);
-  watch.watchTree(__dirname + '/public', reloadServer.reload);
-  watch.watchTree(__dirname + '/views', reloadServer.reload);
-}
-
 // index route
 app.get('/', (request, response) => {
   response.send(nunjucks.render('index.html'));

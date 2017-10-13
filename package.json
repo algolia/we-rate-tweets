@@ -7,6 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "emoji-regex": "^6.5.1",
     "algoliasearch": "^3.24.3",
     "body-parser": "^1.16.1",
     "cookie-parser": "^1.4.3",
@@ -28,14 +29,8 @@
     "oauth",
     "passport",
     "search",
-    "algolia",
-    "axios"
+    "algolia"
   ],
-  "devDependencies": {
-    "emoji-regex": "^6.5.1",
-    "reload": "^2.2.2",
-    "watch": "^1.0.2"
-  },
   "nodemonConfig": {
     "watch": [
       "server.js",
