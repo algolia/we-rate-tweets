@@ -28,6 +28,13 @@ search.addWidget(
   })
 );
 
+// connect a stats widget to show total number of results
+search.addWidget(
+  instantsearch.widgets.stats({
+    container: '#stats-container'
+  })
+);
+
 // connect the container where hits will be displayed
 search.addWidget(
   instantsearch.widgets.hits({
