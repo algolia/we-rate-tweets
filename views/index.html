@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>We Rate Tweets</title>
-    <meta name="description" content="Build a search for your tweets with Algolia">
-    <link id="favicon" rel="icon" href="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2Ffavicon.ico?1503498238361" type="image/x-icon">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/aerial.css">
-    <link rel="stylesheet" href="/style.css">
+    {% include "./partials/header.html" %}
   </head>
   <body class="fill-titan">
     <div class="app">
@@ -32,10 +25,8 @@
           </a>
         </div>
       </div>
-      <div class="footer pos-abt w100p color-white  gradient-dark p-large no-p-t no-p-b h80">
-        <span class="spacer32"></span>
-        <p class="vertical-align-middle">Made with 💖 by <a href="https://algolia.com/">Algolia</a></p>
-      </div>
+      <span class="spacer64"></span>
+      {% include "./partials/footer.html" %}
     </div>
   </body>
 </html>
