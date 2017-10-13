@@ -33,8 +33,27 @@ body {
   left: 0
 }
 
-.adulationScore {
-  font-weight: bold;
+.we-rate-tweets-logo {
+  display: block;
+  margin: 0 auto -40px;
+}
+
+.algolia-mark {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.remix-on-glitch {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+@media (max-width: 1200px) {
+  .desktop-only {
+    display: none;
+  }
 }
 
 a,p {
@@ -61,12 +80,6 @@ input {
 /* aerial extensions */
 .pos-fix {
   position: fixed;
-}
-
-.remix-on-glitch {
-  position: absolute;
-  top: 25px;
-  right: 25px;
 }
 
 /* Override aerial */
