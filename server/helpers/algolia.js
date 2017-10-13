@@ -49,7 +49,7 @@ function pushAlgoliaIndexSettings(user, algoliaClient) {
       // counting more that other interactions, falling back to date
       customRanking: ['desc(total_count)', 'desc(retweet_count)', 'desc(created_at)'],
       // return these attributes for dislaying in search results
-      attributesToRetrieve: ['id_str', 'text', 'created_at', 'retweet_count', 'total_count', 'user.screen_name'],
+      attributesToRetrieve: ['id_str', 'text', 'created_at', 'retweet_count', 'favorite_count', 'total_count', 'user.screen_name'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
     }, (err, content) => {
