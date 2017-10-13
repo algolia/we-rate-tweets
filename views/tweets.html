@@ -26,6 +26,9 @@
           <a href="/patience">Index latest tweets</a> &middot;
         {% endif %}
         {% if user.username %}
+          {% if request.username != user.username %}
+            <a href="/tweets">My tweets</a> &middot;
+          {% endif %}
           <a href="/logout">Logout</a>
         {% else %}
           <a href="/">Rate your own tweets</a>
