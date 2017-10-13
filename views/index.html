@@ -5,18 +5,10 @@
   </head>
   <body class="fill-titan">
     <div class="app">
-      <div class="remix-on-glitch">
-        <a href="https://glitch.com/edit/#!/remix/regal-class"><img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" alt="Remix on Glitch" /></a>
-      </div>
+      {% include "partials/logo.html" %}
       <div class="intro">
-        <span class="spacer64"></span>
-        <img src="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2FTwitter_Logo_Blue.svg?1503497952567" width="120px" >
-        <img src="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2Falgolia-community-mark-HkbcGJg5Yl.svg?1507042326527" width="80px" >
-        <h2>We Rate Tweets 🔍👏</h2>
-        <span class="spacer16"></span>
         <h3>Create an Algolia-powered search for your twitter timeline, complete with ratings</h3>
         <p>Authenticate with your twitter account - no private information is collected.</p>
-        <span class="spacer32"></span>
         <div class="p-large no-p-l no-p-r">
           <a href="/auth/twitter" style="background: #1da1f2; color: #fff; border-radius: 100px; text-align: center; text-decoration: none" class="p-small m-b-large elevation0">
             <span class="logo pos-rel" style="max-width: 32px; vertical-align: middle; margin: 6px; top: 4px">
@@ -25,8 +17,8 @@
           </a>
         </div>
       </div>
-      <span class="spacer64"></span>
-      <div class="footer pos-abt w100p color-white  gradient-dark p-large no-p-t no-p-b h80">
+      <span class="spacer120"></span>
+      <div class="footer pos-fix w100p color-white  gradient-dark p-large no-p-t no-p-b h80">
         {% include "partials/footer.html" %}
       </div>
     </div>

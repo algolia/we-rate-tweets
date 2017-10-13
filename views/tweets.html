@@ -5,21 +5,9 @@
   </head>
   <body class="fill-titan">
     <div class="app">
-      <div class="remix-on-glitch">
-        <a href="https://glitch.com/edit/#!/remix/regal-class"><img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" alt="Remix on Glitch" /></a>
-      </div>
-      <div class="intro">
-        <span class="spacer32"></span>
-        <img src="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2FTwitter_Logo_Blue.svg?1503497952567" width="120px" >
-        <img src="https://cdn.glitch.com/423c5381-d7b9-4cf0-8897-421c180b22f2%2Falgolia-community-mark-HkbcGJg5Yl.svg?1507042326527" width="80px" >
-        <h2>We Rate Tweets 🔎💖🐦 for {{ user.username }}</h2>
-        <span class="spacer16"></span>
-      </div>
+      {% include "partials/logo.html" %}
       <div class="tweetContainer m1200 w100p m-l-r-auto">
         <p>
-          <strong>Success!</strong>
-          Your most recent tweets have been indexed with Algolia and ranked with the most liked and retweeted at the top.
-          <br>
           Type in the search box to find tweets and filter results.
           <br><br>
           <em>An example would be searching "dogs" to see how often you talk about those amazing animals.</em>
@@ -34,7 +22,7 @@
         <span class="spacer32"></span>
         <div id="pagination-container"></div>
         <span class="spacer32"></span>
-        <a href="/reindex">Index latest tweets</a> &middot;
+        <a href="/patience">Index latest tweets</a> &middot;
         <a href="/logout">Logout</a>
       </div>
       <span class="spacer64"></span>

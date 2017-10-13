@@ -58,8 +58,15 @@ input {
   height: 18px
 }
 
+/* aerial extensions */
+.pos-fix {
+  position: fixed;
+}
+
 .remix-on-glitch {
-  margin-top: 25px;
+  position: absolute;
+  top: 25px;
+  right: 25px;
 }
 
 /* Override aerial */

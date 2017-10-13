@@ -80,6 +80,11 @@ app.get('/', (request, response) => {
   response.send(nunjucks.render('index.html'));
 });
 
+// processing route, for the user to wait while we index tweets
+app.get('/patience', (request, response) => {
+  response.send(nunjucks.render('patience.html'));
+});
+
 // clear the cookie if the user logs off
 app.get('/logout', (request, response) => {
   request.logout();
@@ -91,35 +96,25 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 
 // receive authenticated twitter user and index tweets
 app.get('/login/twitter/return', passport.authenticate('twitter', { failureRedirect: '/' }), (request, response) => {
+  response.redirect('/patience');
+});
+
+app.post('/tweets/index', requireUser, (request, response) => {
   // create and configure the algolia index
   algoliaHelper.pushAlgoliaIndexSettings(request.user, algoliaClient).then(() => {
     // fetch the user's twitter timeline and index it with algolia
     return fetchAndIndexTweets(request, response).then(() => {
-      // it can take a few milliseconds for the records to be searchable,
-      // and we want to make sure they are when then next page loads
-      setTimeout(() => {
-        response.redirect('/success');
-      }, 1000);
+      response.json({ ok: true });
     });
   }).catch((err) => {
     console.error('twitter to algolia failed', err);
-    response.status(500).send("Failure fetching and indexing tweets :( Check the logs for more information.");
-  });
-});
-
-// allow an already-authenticated user to reindex their tweets
-app.get('/reindex', requireUser, (request, response) => {
-  fetchAndIndexTweets(request, response).then(() => {
-    response.redirect('/success');
-  }).catch((err) => {
-    console.error('twitter to algolia reindexing failed', err);
-    response.redirect('/');
+    response.status(500).json({ error: err });
   });
 });
 
 // primary page for search tweets, accessible to an authenticated user
-app.get('/success', requireUser, (request, response) => {
-  response.send(nunjucks.render('success.html', { user: request.user,
+app.get('/tweets', requireUser, (request, response) => {
+  response.send(nunjucks.render('tweets.html', { user: request.user,
     algolia: {
       app_id: process.env.ALGOLIA_APP_ID,
       search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
@@ -131,9 +126,9 @@ const listener = app.listen(process.env.PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-function requireUser(req, res, next) {
-  if (!req.isAuthenticated()) {
-    res.redirect('/');
+function requireUser(request, response, next) {
+  if (!request.isAuthenticated()) {
+    response.redirect('/');
   } else {
     next();
   }
