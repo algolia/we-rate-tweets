@@ -57,7 +57,9 @@ search.addWidget(
             <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
               <div class="card-border-line gradient-dark"></div>
               <p>
-                <span>${hit._highlightResult.text.value}</span>
+                <span>
+                  <strong><a target="_blank" href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a></strong>:
+                  ${hit._highlightResult.text.value}</span>
                 <br>
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
                   ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
