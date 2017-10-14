@@ -31,6 +31,10 @@ function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, username, twi
       params.max_id = maxTweetId;
     }
     twitterClient.get('statuses/user_timeline', params, function (error, tweets, response) {
+      if (error) {
+        reject(error);
+        return;
+      }
       if (tweets.length === 0) {
         resolve(allTweets);
         return;
