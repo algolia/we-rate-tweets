@@ -8,14 +8,18 @@
       {% include "partials/logo.html" %}
       <div id='please-stand-by'>
         <h3>Please stand by while we index and rate @{{ request.username }}'s tweets...</h3>
+        <span class="spacer64"></span>
+        <img class="georges" height="75" src="/images/georges.svg">
+        &nbsp;
+        <img class="elisabeth" height="100" src="/images/elisabeth.svg">
       </div>
       <div id='yay-success' style='display: none;'>
-        <h3>
-          <strong>Success!</strong>
-          @{{ request.username }}'s most recent tweets have been indexed with Algolia and rated
+        <h2>Success!</h2>
+        <p>
+          @{{ request.username }}'s most recent tweets have been indexed with Algolia
           <br>
-          according to our <strong>unique Base 10-based formula</strong>.
-        </h3>
+          and rated according to our <strong>unique Base 10-based formula</strong>.
+        </p>
         <span class="spacer32"></span>
         <p>
           <a href="/{{ request.username }}/tweets/search" class="btn btn-static-dark">
@@ -23,10 +27,6 @@
           </a>
         </p>
       </div>
-      <span class="spacer64"></span>
-      <img class="georges" height="75" src="/images/georges.svg">
-      &nbsp;
-      <img class="elisabeth" height="100" src="/images/elisabeth.svg">
       <span class="spacer64"></span>
       <div class="footer pos-abt w100p color-white gradient-dark p-large no-p-t no-p-b h80">
         {% include "partials/footer.html" %}
