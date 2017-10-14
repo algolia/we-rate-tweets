@@ -16,7 +16,7 @@ const search = instantsearch({
 search.addWidget(
   instantsearch.widgets.searchBox({
     container: '#search-box',
-    placeholder: 'Search your tweets'
+    placeholder: 'Search @' + weRateTweets.request.username + '\'s tweets...'
   })
 );
 
@@ -86,7 +86,7 @@ document.getElementById('other-user-button').onclick = function(event) {
   var value = document.getElementById('other-user-input').value;
   if (value) {
     value = value.replace(/@/, '');
-    document.location.href = '/' + value + '/tweets/indexing';
+    document.location.href = '/' + value + '/tweets/search';
   }
 }
 

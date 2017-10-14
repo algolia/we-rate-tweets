@@ -71,14 +71,9 @@ app.get('/', (request, response) => {
   response.send(nunjucks.render('index.html'));
 });
 
-// processing route, for the user to wait while we index tweets
-app.get('/tweets/indexing', requireUser, (request, response) => {
-  renderTweetsIndexingPageForUsername(request.user.username, request, response);
-});
-
 // index the tweets of a user other than the authenticated user
 app.get('/:username/tweets/indexing', requireUser, (request, response) => {
-  renderTweetsIndexingPageForUsername(request.params.username, request, response);
+  response.send(nunjucks.render('tweets/indexing.html', getTemplateContext(request.params.username, request)));
 });
 
 // clear the cookie if the user logs off
@@ -92,29 +87,39 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 
 // receive authenticated twitter user and index tweets
 app.get('/login/twitter/return', passport.authenticate('twitter', { failureRedirect: '/' }), (request, response) => {
-  response.redirect('/tweets/indexing');
-});
-
-// primary page for search tweets, accessible to an authenticated user
-app.get('/tweets/search', requireUser, (request, response) => {
-  renderTweetsSearchPageForUsername(request.user.username, request, response);
+  response.redirect(`/${request.user.username}/tweets/indexing`);
 });
 
 // page for shared tweets, accessible to anyone
 app.get('/:username/tweets/search', (request, response) => {
-  renderTweetsSearchPageForUsername(request.params.username, request, response);
-});
-
-// called by a fetch request in the browser
-// indexes the tweets of the logged in user
-app.post('/tweets/index', requireUser, (request, response) => {
-  indexTweetsForUsername(request.user.username, request, response);
+  // check first to make sure the index exists by making an empty query
+  const username = request.params.username;
+  algoliaHelper.queryIndex("", username, algoliaClient).then(() => {
+    response.send(nunjucks.render('tweets/search.html',
+      getTemplateContext(username, request)));
+  }).catch((err) => {
+    // if the index doesn't exist, redirect to the indexing page
+    response.redirect(`/${username}/tweets/indexing`);
+  });
 });
 
 // called by a fetch request in the browser to index the tweets
 // indexes the tweets of the username specified in params
 app.post('/:username/tweets/index', requireUser, (request, response) => {
-  indexTweetsForUsername(request.params.username, request, response);
+  const username = request.params.username;
+  // create and configure the algolia index
+  algoliaHelper.configureIndex(username, algoliaClient).then(() => {
+    // fetch the user's twitter timeline and index it with algolia
+    return twitterHelper.getTweets(username, twitterClient).then(tweets => {
+      // once we have the tweets, index them
+      return algoliaHelper.indexTweets(username, tweets, algoliaClient).then(() => {
+        response.json({ ok: true });
+      });
+    });
+  }).catch((err) => {
+    console.error('twitter to algolia failed', err);
+    response.status(500).json({ error: err });
+  });
 });
 
 // listen for requests :)
@@ -129,43 +134,6 @@ function requireUser(request, response, next) {
     next();
   }
 };
-
-// index the tweets of the specified twitter user
-function indexTweetsForUsername(username, request, response) {
-  // create and configure the algolia index
-  algoliaHelper.configureIndex(username, algoliaClient).then(() => {
-    // fetch the user's twitter timeline and index it with algolia
-    return twitterHelper.getTweets(username, twitterClient).then(tweets => {
-      // once we have the tweets, index them
-      return algoliaHelper.indexTweets(username, tweets, algoliaClient).then(() => {
-        response.json({ ok: true });
-      });
-    });
-  }).catch((err) => {
-    console.error('twitter to algolia failed', err);
-    response.status(500).json({ error: err });
-  });
-}
-
-// render the tweets indexing page for the username passed in
-function renderTweetsIndexingPageForUsername(username, request, response) {
-  response.send(nunjucks.render('tweets/indexing.html',
-    getTemplateContext(username, request)));
-}
-
-// render the tweets search page for the username passed in,
-// which might be the authenticated user or a user specified in request params
-function renderTweetsSearchPageForUsername(username, request, response) {
-  // check first to make sure the index exists by making an empty query
-  // if the index doesn't exist, serve a 404
-  algoliaHelper.queryIndex("", username, algoliaClient).then(() => {
-    response.send(nunjucks.render('tweets/search.html',
-      getTemplateContext(username, request)));
-  }).catch((err) => {
-    console.log('Couldnt render tweets search page', err);
-    response.status(404).send("Not found");
-  });
-}
 
 function getTemplateContext(username, request) {
   return {

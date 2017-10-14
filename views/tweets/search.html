@@ -7,31 +7,24 @@
     <div class="app">
       {% include "partials/logo.html" %}
       <div class="m1200 w100p m-l-r-auto">
-        <h2>search @{{ request.username }}'s tweets to see ratings</h2>
-        <p>
-          <em>An example would be searching "dogs" to see how often they talk about those amazing animals.</em>
-        </p>
-        <span class="spacer8"></span>
         <div id="stats-container" class="text-right text-sm text-muted"></div>
         <span class="spacer16"></span>
         <div class="m100p pos-rel">
           <i class="icon icon-search pos-abt v-center m-l-large text-lg color-logan"></i>
-          <input id="search-box" autocomplete="off" name="hidden" type="text" class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn">
+          <input id="search-box" autocomplete="off" name="hidden" type="text"
+            class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn">
         </div>
         <span class="spacer16"></span>
         <div id="hits-container"></div>
         <span class="spacer32"></span>
         <div id="pagination-container"></div>
         <span class="spacer32"></span>
-        <a target="_blank" href="/{{ request.username }}/tweets/search">
-          Shareable link
-        </a> &middot;
         {% if request.username == user.username %}
           <a href="/tweets/indexing">Index latest tweets</a> &middot;
         {% endif %}
         {% if user.username %}
           {% if request.username != user.username %}
-            <a href="/tweets/search">My tweets</a> &middot;
+            <a href="/{{ user.username }}/tweets/search">My tweets</a> &middot;
           {% endif %}
           <a href="/logout">Logout</a>
         {% else %}
