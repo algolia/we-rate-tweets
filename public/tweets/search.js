@@ -59,10 +59,10 @@ search.addWidget(
               <div class="card-border-line gradient-dark"></div>
               <p>
                 <span class="hit-text">
-                  <strong><a target="_blank" href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a></strong>:
+                  <strong><a href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a></strong>:
                   ${hit._highlightResult.text.value}</span>
                 <br>
-                <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
+                <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
               </p>
