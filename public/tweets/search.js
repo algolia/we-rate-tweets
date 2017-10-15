@@ -1,8 +1,11 @@
+// create a reference to the variable to make the glitch editor happy
+var instantsearch = window.instantsearch;
+
 // the object set by the server containing valuable configuration info
-const weRateTweets = window.weRateTweets;
+var weRateTweets = window.weRateTweets;
 
 // create an instantsearch instance with our app id and api key
-const search = instantsearch({
+var search = instantsearch({
   appId: weRateTweets.algolia.app_id,
   apiKey: weRateTweets.algolia.search_api_key,
   indexName: weRateTweets.algolia.index_name,
