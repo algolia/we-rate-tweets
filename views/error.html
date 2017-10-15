@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "partials/header.html" %}
+  </head>
+  <body class="fill-titan">
+    {% include "partials/logo.html" %}
+    <div class="m600 m-l-r-auto text-center">
+      <h3 class="alert alert-danger">Error: {{ message }}</h3>
+      {% if detail %}
+        <p>{{ detail }}</p>
+      {% endif %}
+    </div>
+    <div class="fixed-footer-container">
+      {% include "partials/footer.html" %}
+    </div>
+  </body>
+</html>

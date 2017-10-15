@@ -9,8 +9,8 @@ const MAX_TWEETS_PER_FETCH = 200;
 // how far back in the timeline to go - the hard twitter API limit is 3200
 // the real amount of tweets added to the index will be the number you
 // put here minus all retweets; chance the NUMBER_OF_TWEETS_TO_FETCH
-// environment variable to fetch more or less tweets, default is 400
-const NUMBER_OF_TWEETS_TO_FETCH = process.env.NUMBER_OF_TWEETS_TO_FETCH || 400;
+// environment variable to fetch more or less tweets, default is 500
+const NUMBER_OF_TWEETS_TO_FETCH = process.env.NUMBER_OF_TWEETS_TO_FETCH || 500;
 
 // fetch tweets from the twitter API
 function getTweets(username, twitterClient) {

@@ -6,7 +6,7 @@
   <body class="fill-titan">
     {% include "partials/logo.html" %}
     <div id='please-stand-by' class="m600 m-l-r-auto text-center">
-      <h3>Please stand by while we index and rate @{{ request.username }}'s tweets...</h3>
+      <h2>Please stand by while @{{ request.username }}'s tweets are fetched and indexed...</h2>
       <span class="spacer64"></span>
       <img class="georges" height="75" src="/images/georges.svg">
       &nbsp;
@@ -15,15 +15,17 @@
     <div id='yay-success' class="m600 m-l-r-auto text-center" style='display: none;'>
       <h2>Success!</h2>
       <p>
-        @{{ request.username }}'s most recent tweets have been indexed with Algolia
-        <br>
-        and rated according to our <strong>unique Base 10-based formula</strong>.
+        @{{ request.username }}'s <strong id="tweets-indexed-count"></strong> most recent tweets have been indexed with Algolia.
       </p>
       <span class="spacer32"></span>
       <p>
-        <a id="continue-btn" href="/{{ request.username }}/tweets/search" class="btn btn-static-dark">
-          &raquo;&nbsp; See how @{{ request.username }}'s tweets rate
+        <a id="continue-btn" href="/{{ request.username }}/tweets/search" class="btn btn-static-secondary">
+          &raquo;&nbsp; Search @{{ request.username }}'s tweets
         </a>
+      </p>
+      <span class="spacer32"></span>
+      <p class="text-muted">
+        Tip: Tweets with the highest combined total of likes and retweets <br> will appear at the top of the search results on the next page.
       </p>
     </div>
     <div class="fixed-footer-container">
