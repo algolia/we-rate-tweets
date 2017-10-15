@@ -2,6 +2,8 @@
   "name": "we-rate-tweets",
   "version": "0.0.1",
   "description": "Search and get ratings for tweets with Algolia",
+  "repository": "https://github.com/algolia/we-rate-tweets",
+  "license": "MIT",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
