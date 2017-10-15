@@ -145,6 +145,9 @@ function getTemplateContext(username, request) {
       index_name: `tweets-${username}`,
       app_id: process.env.ALGOLIA_APP_ID,
       search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
+    },
+    glitch: {
+      project_domain: process.env.PROJECT_DOMAIN
     }
   };
 }

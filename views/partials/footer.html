@@ -1,6 +1,22 @@
-<span class="spacer32"></span>
-<p class="vertical-align-middle">
-  Made with 💖 by <a href="https://algolia.com/">Algolia</a>
-  &middot;
-  Rate <a target="_blank" href="https://twitter.com/algolia">@Algolia's Tweets</a>
-</p>
+{% include "partials/variables.html" %}
+
+<div class="footer pos-rel w100p color-white text-center gradient-dark p-large no-p-t no-p-b h80">
+  <span class="spacer32"></span>
+  <p class="vertical-align-middle">
+    Made with 💖 by <a href="https://algolia.com/">Algolia</a>
+    &middot;
+    Visit <a target="_blank" href="https://twitter.com/algolia">@Algolia</a> on Twitter
+  </p>
+</div>
+
+{% if glitch.project_domain === 'we-rate-tweets' %}
+  <!-- Only use Google Analytics on the main app -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-32446386-9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-32446386-9');
+  </script>
+{% endif %}

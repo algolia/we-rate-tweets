@@ -53,6 +53,7 @@ search.addWidget(
       // this is the main template, each search hit is passed into it
       item: function(hit) {
         try {
+          let timeDisplay = moment(new Date(hit.created_at * 1000)).format("MMM D YYYY, h:mma");
           return `
             <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
               <div class="card-border-line gradient-dark"></div>
@@ -62,7 +63,7 @@ search.addWidget(
                   ${hit._highlightResult.text.value}</span>
                 <br>
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
-                  ${moment(new Date(hit.created_at * 1000)).format("MMM D, h:mma")}
+                  ${timeDisplay}
                 </a>
               </p>
               <span class="color-bunting">

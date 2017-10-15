@@ -4,45 +4,44 @@
     {% include "partials/header.html" %}
   </head>
   <body class="fill-titan">
-    <div class="app">
-      {% include "partials/logo.html" %}
-      <div class="m1200 w100p m-l-r-auto">
-        <div id="stats-container" class="text-right text-sm text-muted"></div>
-        <span class="spacer16"></span>
-        <div class="m100p pos-rel">
-          <i class="icon icon-search pos-abt v-center m-l-large text-lg color-logan"></i>
-          <input id="search-box" autocomplete="off" name="hidden" type="text"
-            class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn">
-        </div>
-        <span class="spacer16"></span>
-        <div id="hits-container"></div>
-        <span class="spacer32"></span>
-        <div id="pagination-container"></div>
-        <span class="spacer32"></span>
-        {% if request.username == user.username %}
-          <a href="/tweets/indexing">Index latest tweets</a> &middot;
-        {% endif %}
-        {% if user.username %}
-          {% if request.username != user.username %}
-            <a href="/{{ user.username }}/tweets/search">My tweets</a> &middot;
-          {% endif %}
-          <a href="/logout">Logout</a>
-        {% else %}
-          <a href="/">Rate your own tweets</a>
-        {% endif %}
-        <span class="spacer32"></span>
-        <p class="text-center">
-          <input id="other-user-input" type="text" style="background: none" class="w200 fill-white radius6 b-n p-small p-l-small otn"
-            placeholder="@otheruser">
-          <btn id="other-user-button" class="btn btn-static-white">Go</btn>
-        </p>
+    {% include "partials/logo.html" %}
+    <div class="m1200 w100p m-l-r-auto">
+      <div id="stats-container" class="text-right text-sm text-muted"></div>
+      <span class="spacer16"></span>
+      <div class="m100p pos-rel">
+        <i class="icon icon-search pos-abt v-center m-l-large text-lg color-logan"></i>
+        <input id="search-box" autocomplete="off" name="hidden" type="text"
+          class="w100p fill-white radius6 block elevation1 b-n p-large p-l-xxlarge otn">
       </div>
+      <span class="spacer16"></span>
+      <div id="hits-container"></div>
       <span class="spacer32"></span>
-      <div class="footer pos-rel w100p color-white gradient-dark p-large no-p-t no-p-b h80">
-        {% include "partials/footer.html" %}
+      <div class="m600 m-l-r-auto text-center">
+        <div id="pagination-container"></div>
+        <span class="spacer16"></span>
+        <div id="other-links">
+          <a href="/">Home</a> &middot;
+          {% if request.username == user.username %}
+            <a href="/{{ user.username }}/tweets/indexing">Reindex</a> &middot;
+          {% endif %}
+          {% if user.username %}
+            {% if request.username != user.username %}
+              <a href="/{{ user.username }}/tweets/search">My tweets</a> &middot;
+            {% endif %}
+            <a href="/logout">Logout</a>
+          {% else %}
+            <a href="/">Rate your own tweets</a>
+          {% endif %}
+        </div>
+        <span class="spacer32"></span>
+        <input id="other-user-input" type="text" style="background: none"
+          class="w200 fill-white radius6 elevation1 b-n p-small p-l-small otn" placeholder="@username">
+        &nbsp;&nbsp;
+        <btn id="other-user-button" class="btn btn-static-secondary">Go</btn>
+        <span class="spacer64"></span>
       </div>
     </div>
-    {% include "partials/variables.html" %}
+    {% include "partials/footer.html" %}
     <script src="/tweets/search.js"></script>
   </body>
 </html>
