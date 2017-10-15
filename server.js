@@ -68,11 +68,12 @@ nunjucks.configure('views', {
 
 // index route
 app.get('/', (request, response) => {
-  response.send(nunjucks.render('index.html'));
+  response.send(nunjucks.render('index.html', getTemplateContext(
+    request.user ? request.user.username : "", request)));
 });
 
-// index the tweets of a user other than the authenticated user
-app.get('/:username/tweets/indexing', requireUser, (request, response) => {
+// index the tweets of a user
+app.get('/:username/tweets/indexing', requireUser, requireIndexingOfOtherTimelines, (request, response) => {
   response.send(nunjucks.render('tweets/indexing.html', getTemplateContext(request.params.username, request)));
 });
 
@@ -105,7 +106,7 @@ app.get('/:username/tweets/search', (request, response) => {
 
 // called by a fetch request in the browser to index the tweets
 // indexes the tweets of the username specified in params
-app.post('/:username/tweets/index', requireUser, (request, response) => {
+app.post('/:username/tweets/index', requireUser, requireIndexingOfOtherTimelines, (request, response) => {
   const username = request.params.username;
   // create and configure the algolia index
   algoliaHelper.configureIndex(username, algoliaClient).then(() => {
@@ -135,6 +136,23 @@ function requireUser(request, response, next) {
   }
 };
 
+// by default, indexing can only be triggered for the logged in twitter user
+// remixes can change this by setting the ALLOW_INDEXING_OF_OTHER_TIMELINES
+// environment variable to a non-empty value like "1"
+function requireIndexingOfOtherTimelines(request, response, next) {
+  if (process.env.ALLOW_INDEXING_OF_OTHER_TIMELINES) {
+    next();
+  } else {
+    // the logged in username and the requested username must match
+    if (request.user.username === request.params.username) {
+      next();
+    } else {
+      console.warn('Indexing tweets for the non-logged in user must be explicitly allowed by an environment variable.');
+      response.redirect('/');
+    }
+  }
+}
+
 function getTemplateContext(username, request) {
   return {
     user: request.user,
@@ -146,8 +164,9 @@ function getTemplateContext(username, request) {
       app_id: process.env.ALGOLIA_APP_ID,
       search_api_key: process.env.ALGOLIA_SEARCH_API_KEY
     },
-    glitch: {
-      project_domain: process.env.PROJECT_DOMAIN
+    environment: {
+      project_domain: process.env.PROJECT_DOMAIN,
+      allow_indexing_of_other_timelines: process.env.ALLOW_INDEXING_OF_OTHER_TIMELINES
     }
   };
 }

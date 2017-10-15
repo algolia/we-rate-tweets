@@ -30,14 +30,16 @@
             {% endif %}
             <a href="/logout">Logout</a>
           {% else %}
-            <a href="/">Rate your own tweets</a>
+            <a href="/">Try with your own tweets</a>
           {% endif %}
         </div>
-        <span class="spacer32"></span>
-        <input id="other-user-input" type="text" style="background: none"
-          class="w200 fill-white radius6 elevation1 b-n p-small p-l-small otn" placeholder="@username">
-        &nbsp;&nbsp;
-        <btn id="other-user-button" class="btn btn-static-secondary">Go</btn>
+        {% if environment.allow_indexing_of_other_timelines %}
+          <span class="spacer32"></span>
+          <input id="other-user-input" type="text" style="background: none"
+            class="w200 fill-white radius6 elevation1 b-n p-small p-l-small otn" placeholder="@username">
+          &nbsp;&nbsp;
+          <btn id="other-user-button" class="btn btn-static-secondary">Go</btn>
+        {% endif %}
         <span class="spacer64"></span>
       </div>
     </div>

@@ -12,8 +12,9 @@
       app_id: "{{ algolia.app_id }}",
       search_api_key: "{{ algolia.search_api_key }}"
     },
-    glitch: {
-      project_domain: "{{ glitch.project_domain }}"
+    environment: {
+      project_domain: "{{ environment.project_domain }}",
+      allow_indexing_of_other_timelines: "{{ environment.allow_indexing_of_other_timelines }}"
     }
   };
 </script>
