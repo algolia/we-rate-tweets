@@ -6,7 +6,7 @@ const search = instantsearch({
   appId: weRateTweets.algolia.app_id,
   apiKey: weRateTweets.algolia.search_api_key,
   indexName: weRateTweets.algolia.index_name,
-  urlSync: false,
+  urlSync: true,
   searchParameters: {
     hitsPerPage: 9
   }
