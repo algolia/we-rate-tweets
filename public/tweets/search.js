@@ -88,6 +88,7 @@ search.addWidget(
 // kick off the first search
 search.start();
 
+// navigate to the search page of a different user timeline
 function searchOtherUser() {
   var value = document.getElementById('other-user-input').value;
   if (value) {
