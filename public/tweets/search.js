@@ -57,22 +57,24 @@ search.addWidget(
       // this is the main template, each search hit is passed into it
       item: function(hit) {
         try {
-          let timeDisplay = moment(new Date(hit.created_at * 1000)).format("MMM D YYYY, h:mma");
+          let timeDisplay = moment(new Date(hit.created_at * 1000)).format("MMM D 'YY, h:mma");
           return `
-            <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
+            <div class="fill-white elevation1 p-xlarge text-left radius6 card-border pos-rel">
               <div class="card-border-line gradient-dark"></div>
               <p>
-                <span class="hit-text">
-                  <strong><a href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a></strong>:
-                  ${hit._highlightResult.text.value}</span>
-                <br>
+                <a class="color-bunting" href="https://twitter.com/${hit.user.name}"><strong>${hit.user.name}</strong></a>
+                <a class="text-muted" href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a>
+                <span class="spacer8"></span>
+                <span class="hit-text">${hit._highlightResult.text.value}</span>
+              </p>
+              <span class="hit-footer color-portage">
+                <img class="twitter-icon" src="/images/twitter-retweet.png"> ${hit.retweet_count}
+                &middot;
+                <img class="twitter-icon" src="/images/twitter-heart.png"> ${hit.favorite_count}
+                &middot;
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
-              </p>
-              <span class="color-bunting">
-                <i class="twitter-icon inline vertical-align-middle"></i>
-                &nbsp; ${calculateEngagementEmoji(hit.total_count)}
               </span>
             </div>
           `;

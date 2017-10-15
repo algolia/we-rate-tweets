@@ -32,11 +32,17 @@ if (process.env.TWITTER_CONSUMER_KEY &&
   }));
 }
 
+// the entire user object is too large to fit in the cookie session
+// so store a slimmed down version with only the attributes we need
 passport.serializeUser((user, done) => {
-  done(null, user.username);
+  done(null, {
+    name: user.displayName,
+    username: user.username,
+    profile_image_url: user.photos.length > 0 ? user.photos[0].value : ''
+  });
 });
-passport.deserializeUser((username, done) => {
-  done(null, { username: username });
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
 // create the express app
@@ -181,9 +187,9 @@ function getTemplateContext(request, username) {
   return {
     user: request.user,
     request: {
+      authenticated: request.isAuthenticated(),
       // if a username is passed, use that, otherwise use the
       // logged in user's username if there is one
-      authenticated: request.isAuthenticated(),
       username: username ? username : (request.user ? request.user.username : ""),
     },
     algolia: {

@@ -1,11 +1,14 @@
 <script>
-  // make username and algolia app info available on the client
+  // make key server-side information available on the client
   window.weRateTweets = {
     request: {
-      username: "{{ request.username }}"
+      username: "{{ request.username }}",
+      authenticated: "{{ request.authenticated }}"
     },
     user: {
-      username: "{{ user.username }}"
+      name: "{{ user.name }}",
+      username: "{{ user.username }}",
+      profile_image_url: "{{ user.profile_image_url }}"
     },
     algolia: {
       index_name: "{{ algolia.index_name }}",

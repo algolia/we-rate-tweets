@@ -76,7 +76,9 @@ function configureIndex(username, algoliaClient) {
       // counting more that other interactions, falling back to date
       customRanking: ['desc(total_count)', 'desc(retweet_count)', 'desc(created_at)'],
       // return these attributes for dislaying in search results
-      attributesToRetrieve: ['id_str', 'text', 'created_at', 'retweet_count', 'favorite_count', 'total_count', 'user.screen_name'],
+      attributesToRetrieve: ['id_str', 'text', 'created_at',
+        'retweet_count', 'favorite_count', 'total_count',
+        'user.name', 'user.screen_name', 'user.profile_image_url'],
       // make plural and singular matches count the same for these langs
       ignorePlurals: ['en', 'fr']
     }, (err, content) => {
@@ -114,7 +116,11 @@ function tweetsToAlgoliaObjects(tweets) {
         favorite_count: tweet.favorite_count,
         retweet_count: tweet.retweet_count,
         total_count: tweet.retweet_count + tweet.favorite_count,
-        user: { screen_name: tweet.user.screen_name }
+        user: {
+          name: tweet.user.name,
+          screen_name: tweet.user.screen_name,
+          profile_image_url: tweet.user.profile_image_url
+        }
       };
       algoliaObjects.push(algoliaObject);
     }

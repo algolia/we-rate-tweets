@@ -20,13 +20,13 @@
         <div id="pagination-container"></div>
         <span class="spacer16"></span>
         <div id="other-links">
-          <a href="/">Home</a> &middot;
-          {% if request.username == user.username %}
-            <a href="/{{ user.username }}/tweets/indexing">Reindex</a> &middot;
-          {% endif %}
-          {% if user.username %}
+          <a href="/">About</a> &middot;
+          {% if request.authenticated %}
             {% if request.username != user.username %}
               <a href="/{{ user.username }}/tweets/search">My tweets</a> &middot;
+            {% endif %}
+            {% if user.username == request.username or environment.allow_indexing_of_other_timelines %}
+              <a href="/{{ request.username }}/tweets/indexing">Reindex</a> &middot;
             {% endif %}
             <a href="/logout">Logout</a>
           {% else %}
