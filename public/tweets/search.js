@@ -58,7 +58,7 @@ search.addWidget(
             <div class="fill-white elevation1 p-xlarge text-left radius6 card-border">
               <div class="card-border-line gradient-dark"></div>
               <p>
-                <span>
+                <span class="hit-text">
                   <strong><a target="_blank" href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a></strong>:
                   ${hit._highlightResult.text.value}</span>
                 <br>

@@ -50,6 +50,10 @@ body {
   right: 25px;
 }
 
+.hit-text {
+  word-break: break-word;
+}
+
 @media (max-width: 1200px) {
   .desktop-only {
     display: none;
