@@ -27,7 +27,15 @@ function indexTweets(username, tweets, algoliaClient) {
       if (err) {
         reject(err);
       } else {
-        resolve(content);
+        // indexing is async on the algolia side
+        // use waitTask to return only when it is finished
+        algoliaIndex.waitTask(content.taskID, (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(content);
+          }
+        });
       }
     });
   });
