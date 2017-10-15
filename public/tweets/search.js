@@ -1,5 +1,6 @@
-// create a reference to the variable to make the glitch editor happy
+// create reference to global variables to make the glitch editor happy
 var instantsearch = window.instantsearch;
+var moment = window.moment;
 
 // the object set by the server containing valuable configuration info
 var weRateTweets = window.weRateTweets;
