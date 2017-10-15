@@ -88,7 +88,7 @@ function tweetsToAlgoliaObjects(tweets) {
   // iterate over tweets and build the algolia record
   for (var i = 0; i < tweets.length; i++) {
     var tweet = tweets[i];
-    var text = tweet.text;
+    var text = tweet.full_text;
     // remove emojis, as they might not display correctly
     var cleanText = text.replace(emojiRegex, '');
     // remove urls, as we don't want to search nor display them

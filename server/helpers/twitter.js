@@ -26,7 +26,8 @@ function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, username, twi
       resolve(allTweets);
       return;
     }
-    var params = { screen_name: username, count: MAX_TWEETS_PER_FETCH, include_rts: false };
+    var params = { screen_name: username, count: MAX_TWEETS_PER_FETCH,
+      include_rts: false, tweet_mode: "extended" };
     if (maxTweetId > -1) {
       params.max_id = maxTweetId;
     }

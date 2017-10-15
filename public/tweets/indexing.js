@@ -11,5 +11,6 @@ Promise.all([fetchPromise, timePromise]).then(function(response) {
     document.getElementById('yay-success').style = 'display: block;';
   } else {
     alert('Blergh. Indexing and rating the tweets failed. Please check the logs for more information.')
+    document.location.href = "/";
   }
 });

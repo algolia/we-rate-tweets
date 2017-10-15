@@ -83,14 +83,20 @@ search.addWidget(
 // kick off the first search
 search.start();
 
-// wire up the other user button
-document.getElementById('other-user-button').onclick = function(event) {
+function searchOtherUser() {
   var value = document.getElementById('other-user-input').value;
   if (value) {
     value = value.replace(/@/, '');
     document.location.href = '/' + value + '/tweets/search';
   }
 }
+
+// wire up the other user button
+document.getElementById('other-user-button').onclick = searchOtherUser;
+document.getElementById('other-user-input').addEventListener('keypress', function(event) {
+  if (event.keyCode === 13)
+    searchOtherUser();
+});
 
 // helper functions
 
