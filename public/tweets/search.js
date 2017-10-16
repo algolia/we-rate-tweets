@@ -67,7 +67,7 @@ search.addWidget(
                 <span class="spacer8"></span>
                 <span class="hit-text">${hit._highlightResult.text.value}</span>
               </p>
-              <span class="hit-footer color-portage">
+              <span class="hit-footer color-portage text-sm">
                 <img class="twitter-icon" src="/images/twitter-retweet.png"> ${hit.retweet_count}
                 &middot;
                 <img class="twitter-icon" src="/images/twitter-heart.png"> ${hit.favorite_count}
@@ -75,6 +75,9 @@ search.addWidget(
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
+                <div class="tweet-rating color-mulberry text-sm text-bold">
+                  ${calculateEngagementEmoji(hit.total_count)}
+                </div>
               </span>
             </div>
           `;

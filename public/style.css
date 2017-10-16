@@ -56,12 +56,18 @@ body {
 }
 
 .card-border {
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 .hit-footer {
   position: absolute;
-  bottom: 25px;
+  bottom: 15px;
+}
+
+.tweet-rating {
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
 }
 
 .twitter-icon {
