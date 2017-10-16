@@ -114,22 +114,22 @@ document.getElementById('other-user-input').addEventListener('keypress', functio
 // choose the right emoji for the tweet based on its total_count
 function calculateEngagementEmoji(number) {
   switch (true) {
-    case (number <= 0):
-      return '😏 0/10 keep tweeting';
+    case (number >= 0 && number <= 9):
+      return `${(number)}/10 😏 keep tweetering`;
     break;
-    case (number >= 1 && number <= 5):
-      return `${(number)}/10 🎭 Would RT`;
+    case (number >= 10 && number <= 100):
+      return "11/10 🎭 Would share with others";
     break;
-    case (number >= 5 && number <= 9):
-      return `${(number)}/10 💖 Would Like`;
+    case (number >= 101 && number <= 500):
+      return "12/10 💖 Would press da heart";
     break;
-    case (number >= 9 && number <= 15):
-      return `${(number)}/10 🤘 Would like & RT`;
+    case (number >= 501 && number <= 1000):
+      return "13/10🤘 Would love all things";
     break;
-    case (number >= 15 && number <= 20):
-      return `${(number)}/10 🐬 Would DM`;
+    case (number >= 1001 && number <= 2000):
+      return "14/10🐬 Hundo P, would DirectMessage";
     break;
     default:
-      return `${(number)}/10 💥🎉 Would discuss IRL`;
+      return `${(number)}/10 💥🎉 Would find you and discuss IRL`;
   }
 }
