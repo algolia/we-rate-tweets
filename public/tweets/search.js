@@ -72,7 +72,7 @@ search.addWidget(
                 &middot;
                 <img class="twitter-icon" src="/images/twitter-heart.png"> ${hit.favorite_count}
                 &middot;
-                <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" class="no-decoration color-portage">
+                <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
                 <div class="tweet-rating color-mulberry text-sm text-bold">
