@@ -122,27 +122,27 @@ function randomElement(array) {
 }
 // choose the right emoji for the tweet based on its total_count
 function calculateEngagementEmoji(number) {
-  var cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader', 
+  const cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader', 
   'WowWowWow', 'So on fleek', 'That tweet... It me', 
   'TBH...', 'Perf!', 'Amaze!']
 
   switch (true) {
     case (number >= 0 && number <= 9):
-      return `${randomElement(cheekyComments)} ${number}/10 😏 keep tweetering`;
+      return `${randomElement(cheekyComments)}: ${number}/10 😏 keep tweetering`;
     break;
     case (number >= 10 && number <= 100):
-      return `${randomElement(cheekyComments)}, 11/10 🎭 Would share with others`;
+      return `${randomElement(cheekyComments)}: 11/10 🎭 Would share with others`;
     break;
     case (number >= 101 && number <= 500):
-      return `${randomElement(cheekyComments)}, 12/10 💖 Would press da heart`;
+      return `${randomElement(cheekyComments)}: 12/10 💖 Would press da heart`;
     break;
     case (number >= 501 && number <= 1000):
-      return `${randomElement(cheekyComments)}, 13/10🤘 Would love all things`;
+      return `${randomElement(cheekyComments)}: 13/10🤘 Would love all things`;
     break;
     case (number >= 1001 && number <= 2000):
-      return `${randomElement(cheekyComments)}, 14/10 🦄 Hundo percent, would DirectMessage`;
+      return `${randomElement(cheekyComments)}: 14/10 🦄 Hundo percent, would DirectMessage`;
     break;
     default:
-      return `${randomElement(cheekyComments)} 15/10 💥🎉 Would find you and discuss IRL`;
+      return `${randomElement(cheekyComments)}: 15/10 💥🎉 Would find you and discuss IRL`;
   }
 }
