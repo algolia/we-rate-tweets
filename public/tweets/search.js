@@ -75,7 +75,7 @@ search.addWidget(
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
-                <div class="tweet-rating color-mulberry text-sm text-bold">
+                <div class="tweet-rating color-mulberry text-sm text-bold" title="We Rate Tweets Ranking Score">
                   ${calculateEngagementEmoji(hit.total_count)}
                 </div>
               </span>
@@ -111,25 +111,38 @@ document.getElementById('other-user-input').addEventListener('keypress', functio
 
 // helper functions
 
+// return a random integer in the range 0 through n - 1
+function randomInt(n) {
+    return Math.floor(Math.random() * n);
+}
+
+// return a random element from an array
+function randomElement(array) {
+    return array[randomInt(array.length)];
+}
 // choose the right emoji for the tweet based on its total_count
 function calculateEngagementEmoji(number) {
+  const cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader', 
+  'WowWowWow', 'So on fleek', 'That tweet... It me', 
+  'TBH...', 'Perf!', 'Amaze!']
+
   switch (true) {
-    case (number <= 0):
-      return '😏 0/10 keep tweeting';
+    case (number >= 0 && number <= 9):
+      return `${randomElement(cheekyComments)}: ${number}/10 😏 keep tweetering`;
     break;
-    case (number >= 1 && number <= 5):
-      return `${(number)}/10 🎭 Would RT`;
+    case (number >= 10 && number <= 100):
+      return `${randomElement(cheekyComments)}: 11/10 🎭 Would share with others`;
     break;
-    case (number >= 5 && number <= 9):
-      return `${(number)}/10 💖 Would Like`;
+    case (number >= 101 && number <= 500):
+      return `${randomElement(cheekyComments)}: 12/10 💖 Would press da heart`;
     break;
-    case (number >= 9 && number <= 15):
-      return `${(number)}/10 🤘 Would like & RT`;
+    case (number >= 501 && number <= 1000):
+      return `${randomElement(cheekyComments)}: 13/10🤘 Would love all things`;
     break;
-    case (number >= 15 && number <= 20):
-      return `${(number)}/10 🐬 Would DM`;
+    case (number >= 1001 && number <= 2000):
+      return `${randomElement(cheekyComments)}: 14/10 🦄 Hundo percent, would DirectMessage`;
     break;
     default:
-      return `${(number)}/10 💥🎉 Would discuss IRL`;
+      return `${randomElement(cheekyComments)}: 15/10 💥🎉 Would find you and discuss IRL`;
   }
 }
