@@ -75,7 +75,7 @@ search.addWidget(
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
-                <div class="tweet-rating color-mulberry text-sm text-bold">
+                <div class="tweet-rating color-mulberry text-sm text-bold" title="We Rate Tweets Ranking Score">
                   ${calculateEngagementEmoji(hit.total_count)}
                 </div>
               </span>
@@ -111,6 +111,15 @@ document.getElementById('other-user-input').addEventListener('keypress', functio
 
 // helper functions
 
+// return a random integer in the range 0 through n - 1
+function randomInt(n) {
+    return Math.floor(Math.random() * n);
+}
+
+// return a random element from an array
+function randomElement(array) {
+    return array[randomInt(array.length)];
+}
 // choose the right emoji for the tweet based on its total_count
 function calculateEngagementEmoji(number) {
   var cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader', 
@@ -119,21 +128,21 @@ function calculateEngagementEmoji(number) {
 
   switch (true) {
     case (number >= 0 && number <= 9):
-      return `${cheekyComments.pop()} ${number}/10 😏 keep tweetering`;
+      return `${randomElement(cheekyComments)} ${number}/10 😏 keep tweetering`;
     break;
     case (number >= 10 && number <= 100):
-      return `${cheekyComments.pop()}, 11/10 🎭 Would share with others`;
+      return `${randomElement(cheekyComments)}, 11/10 🎭 Would share with others`;
     break;
     case (number >= 101 && number <= 500):
-      return `${cheekyComments.pop()}, 12/10 💖 Would press da heart`;
+      return `${randomElement(cheekyComments)}, 12/10 💖 Would press da heart`;
     break;
     case (number >= 501 && number <= 1000):
-      return `${cheekyComments.pop()}, 13/10🤘 Would love all things`;
+      return `${randomElement(cheekyComments)}, 13/10🤘 Would love all things`;
     break;
     case (number >= 1001 && number <= 2000):
-      return `${cheekyComments.pop()}, 14/10 🦄 Hundo percent, would DirectMessage`;
+      return `${randomElement(cheekyComments)}, 14/10 🦄 Hundo percent, would DirectMessage`;
     break;
     default:
-      return `${cheekyComments.pop()} 15/10 💥🎉 Would find you and discuss IRL`;
+      return `${randomElement(cheekyComments)} 15/10 💥🎉 Would find you and discuss IRL`;
   }
 }
