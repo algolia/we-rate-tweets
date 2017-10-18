@@ -1,7 +1,7 @@
 {
   "name": "we-rate-tweets",
   "version": "0.0.1",
-  "description": "Search and get ratings for tweets with Algolia",
+  "description": "Search your tweets with Algolia and remix with Glitch",
   "repository": "https://github.com/algolia/we-rate-tweets",
   "license": "MIT",
   "main": "server.js",
@@ -31,7 +31,9 @@
     "oauth",
     "passport",
     "search",
-    "algolia"
+    "algolia",
+    "emoji",
+    "glitch"
   ],
   "nodemonConfig": {
     "watch": [
