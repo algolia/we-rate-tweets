@@ -95,7 +95,7 @@ search.start();
 
 // wire up the controls for visiting/indexing another timeline
 // only if this is allowed at the app level
-if (weRateTweets.allow_indexing_of_other_timelines) {
+if (weRateTweets.environment.allow_indexing_of_other_timelines) {
   // navigate to the search page of a different user timeline
   function searchOtherUser() {
     var value = document.getElementById('other-user-input').value;
