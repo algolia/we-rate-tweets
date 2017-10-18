@@ -24,6 +24,10 @@ body {
   color: #2c3e50;
 }
 
+.text-18px {
+  font-size: 18px;
+}
+
 .footer {
   font-size: 60%;
   bottom: 0;
