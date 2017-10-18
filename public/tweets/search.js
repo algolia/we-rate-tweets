@@ -121,8 +121,10 @@ if (weRateTweets.environment.allow_indexing_of_other_timelines) {
 
 var birds = ['hector', 'elisabeth', 'george'];
 
-// tweets are rated on a linear scale from 1-10 and a base-10 logrithmic
-// scale beyond that. in your remix, change the emojis to suit your preference!
+// tweets are rated on a linear scale from 1-10
+// split into a few buckets between 11-99
+// and a base-10 logarithmic scale beyond that
+// in your remix, change the emojis to suit your preference!
 var ratemoji = {
   0:  "💩",
   1:  "😖",
