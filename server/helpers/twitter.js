@@ -15,12 +15,12 @@ const NUMBER_OF_TWEETS_TO_FETCH = process.env.NUMBER_OF_TWEETS_TO_FETCH || 500;
 // fetch tweets from the twitter API
 function getTweets(username, twitterClient) {
   const iterations = Math.ceil(NUMBER_OF_TWEETS_TO_FETCH / MAX_TWEETS_PER_FETCH);
-  return getTweetsOlderThan([], iterations, -1, username, twitterClient);
+  return getTweetsOlderThan([], iterations, "", username, twitterClient);
 }
 
 // recursive method that runs iterationsLeft number of times, adding tweets found
 // to an array, changing the max_id value to keep getting older tweets
-function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, username, twitterClient) {
+function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetIdStr, username, twitterClient) {
   return new Promise(function (resolve, reject) {
     if (iterationsLeft === 0) {
       resolve(allTweets);
@@ -28,8 +28,8 @@ function getTweetsOlderThan(allTweets, iterationsLeft, maxTweetId, username, twi
     }
     var params = { screen_name: username, count: MAX_TWEETS_PER_FETCH,
       include_rts: false, tweet_mode: "extended" };
-    if (maxTweetId > -1) {
-      params.max_id = maxTweetId;
+    if (maxTweetIdStr) {
+      params.max_id = maxTweetIdStr;
     }
     twitterClient.get('statuses/user_timeline', params, function (error, tweets, response) {
       if (error) {

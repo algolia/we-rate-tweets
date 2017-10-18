@@ -105,6 +105,7 @@ function tweetsToAlgoliaObjects(tweets) {
     cleanText = cleanText.replace(urlRegex, '');
     // create the record that will be sent to algolia if there is text to index
     if (cleanText.trim().length > 0) {
+
       var algoliaObject = {
         // use id_str not id (an int), as this int gets truncated in JS
         // the objectID is the key for the algolia record, and mapping

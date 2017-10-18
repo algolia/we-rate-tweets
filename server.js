@@ -124,8 +124,10 @@ app.post('/:username/tweets/index', requireUser, requireIndexingOfOtherTimelines
     // fetch the user's twitter timeline and index it with algolia
     return twitterHelper.getTweets(username, twitterClient()).then(tweets => {
       // once we have the tweets, index them
-      return algoliaHelper.indexTweets(username, tweets, algoliaClient()).then(() => {
-        response.json({ ok: true, count: tweets.length });
+      return algoliaHelper.indexTweets(username, tweets, algoliaClient()).then((content) => {
+        // return the count of objectIDs returned by algolia
+        const uniqueObjectIds = new Set(content.objectIDs);
+        response.json({ ok: true, count: uniqueObjectIds.size });
       });
     });
   }).catch((err) => {
