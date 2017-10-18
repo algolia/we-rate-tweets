@@ -8,6 +8,25 @@
   <body class="fill-titan">
     {% include "partials/logo.html" %}
     <div class="m1200 w100p m-l-r-auto">
+      {% if request.username == user.username %}
+        <div class="text-center">
+          <a href="https://twitter.com/{{ user.username}}" target="_blank">
+            <img class="radius100p" src="{{ user.profile_image_url }}">
+          </a>
+          <h3>
+            <a class="color-bunting text-bold" href="https://twitter.com/{{ user.username}}" target="_blank">{{ user.name}}</a>
+            &middot;
+            <a class="text-muted" href="https://twitter.com/{{ user.username }}" target="_blank">@{{ user.username }}</a>
+          </h3>
+        </div>
+        <span class="spacer16"></span>
+      {% else %}
+        <div class="text-center">
+          <h3>
+            <a class="text-muted" href="https://twitter.com/{{ request.username}}" target="_blank">@{{ request.username}}</a>
+          </h3>
+        </div>
+      {% endif %}
       <div id="stats-container" class="text-right text-sm text-muted"></div>
       <span class="spacer8"></span>
       <div class="m100p pos-rel">
