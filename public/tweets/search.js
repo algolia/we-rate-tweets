@@ -93,21 +93,25 @@ search.addWidget(
 // kick off the first search
 search.start();
 
-// navigate to the search page of a different user timeline
-function searchOtherUser() {
-  var value = document.getElementById('other-user-input').value;
-  if (value) {
-    value = value.replace(/@/, '');
-    document.location.href = '/' + value + '/tweets/search';
+// wire up the controls for visiting/indexing another timeline
+// only if this is allowed at the app level
+if (weRateTweets.allow_indexing_of_other_timelines) {
+  // navigate to the search page of a different user timeline
+  function searchOtherUser() {
+    var value = document.getElementById('other-user-input').value;
+    if (value) {
+      value = value.replace(/@/, '');
+      document.location.href = '/' + value + '/tweets/search';
+    }
   }
-}
 
-// wire up the other user button
-document.getElementById('other-user-button').onclick = searchOtherUser;
-document.getElementById('other-user-input').addEventListener('keypress', function(event) {
-  if (event.keyCode === 13)
-    searchOtherUser();
-});
+  // wire up the other user button
+  document.getElementById('other-user-button').onclick = searchOtherUser;
+  document.getElementById('other-user-input').addEventListener('keypress', function(event) {
+    if (event.keyCode === 13)
+      searchOtherUser();
+  });
+}
 
 // helper functions
 
@@ -122,8 +126,8 @@ function randomElement(array) {
 }
 // choose the right emoji for the tweet based on its total_count
 function calculateEngagementEmoji(number) {
-  const cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader', 
-  'WowWowWow', 'So on fleek', 'That tweet... It me', 
+  const cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader',
+  'WowWowWow', 'So on fleek', 'That tweet... It me',
   'TBH...', 'Perf!', 'Amaze!']
 
   switch (true) {
