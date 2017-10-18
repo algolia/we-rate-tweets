@@ -56,15 +56,14 @@ search.addWidget(
         </p>`,
       // this is the main template, each search hit is passed into it
       item: function(hit) {
+        var bird = birds[Math.floor(Math.random() * birds.length)];
         try {
-          let timeDisplay = moment(new Date(hit.created_at * 1000)).format("MMM D 'YY, h:mma");
+          var timeDisplay = moment(new Date(hit.created_at * 1000)).format("MMM D 'YY, h:mma");
+          var ratingTier = calculateRatingTier(hit.total_count);
           return `
             <div class="fill-white elevation1 p-xlarge text-left radius6 card-border pos-rel">
               <div class="card-border-line gradient-dark"></div>
               <p>
-                <a class="color-bunting" href="https://twitter.com/${hit.user.name}"><strong>${hit.user.name}</strong></a>
-                <a class="text-muted" href="https://twitter.com/${hit.user.screen_name}">@${hit.user.screen_name}</a>
-                <span class="spacer8"></span>
                 <span class="hit-text">${hit._highlightResult.text.value}</span>
               </p>
               <span class="hit-footer color-portage text-sm">
@@ -75,10 +74,15 @@ search.addWidget(
                 <a href="https://twitter.com/${hit.user.screen_name}/status/${hit.id_str}" target="_blank" class="no-decoration color-portage">
                   ${timeDisplay}
                 </a>
-                <div class="tweet-rating color-mulberry text-sm text-bold" title="We Rate Tweets Ranking Score">
-                  ${calculateEngagementEmoji(hit.total_count)}
-                </div>
               </span>
+                <div class="tweet-rating color-mulberry text-sm text-bold" title="Rating based on number of retweets + likes">
+                  <span class="rating-row">
+                    <span class="emoji-rating">${ratemoji[ratingTier]}</span>
+                    <img class="emoji-bubble" src="/images/emoji-bubble.svg">
+                    <span class="rating-text">${ratingTier}/10</span>
+                  </span>
+                  <img class="bird bird-${bird}" src="/images/${bird}.svg">
+                </div>
             </div>
           `;
         } catch (e) {
@@ -115,38 +119,56 @@ if (weRateTweets.environment.allow_indexing_of_other_timelines) {
 
 // helper functions
 
-// return a random integer in the range 0 through n - 1
-function randomInt(n) {
-    return Math.floor(Math.random() * n);
+var birds = ['hector', 'elisabeth', 'george'];
+
+// tweets are rated on a linear scale from 1-10 and a base-10 logrithmic
+// scale beyond that. in your remix, change the emojis to suit your preference!
+var ratemoji = {
+  0:  "💩",
+  1:  "😖",
+  2:  "😣",
+  3:  "😦",
+  4:  "😒",
+  5:  "😞",
+  6:  "😐",
+  7:  "😑",
+  8:  "🙃",
+  9:  "😏",
+  10: "🤔",
+  11: "😌", // 11 - 19
+  12: "🙂", // 20 - 39
+  13: "😃", // 40 - 59
+  14: "😃", // 60 - 79
+  15: "🤓", // 80 - 99
+  16: "😅", // 100 - 999
+  17: "😂", // 1,000 - 9,999
+  18: "😘", // 10,000 - 99,999
+  19: "😍", // 100,000 - 999,999
+  20: "🦄"  // 1,000,000 - 9,999,999
 }
 
-// return a random element from an array
-function randomElement(array) {
-    return array[randomInt(array.length)];
-}
-// choose the right emoji for the tweet based on its total_count
-function calculateEngagementEmoji(number) {
-  const cheekyComments = ['Excellent content', 'The hero we need', 'Industry Leader',
-  'WowWowWow', 'So on fleek', 'That tweet... It me',
-  'TBH...', 'Perf!', 'Amaze!']
-
-  switch (true) {
-    case (number >= 0 && number <= 9):
-      return `${randomElement(cheekyComments)}: ${number}/10 😏 keep tweetering`;
-    break;
-    case (number >= 10 && number <= 100):
-      return `${randomElement(cheekyComments)}: 11/10 🎭 Would share with others`;
-    break;
-    case (number >= 101 && number <= 500):
-      return `${randomElement(cheekyComments)}: 12/10 💖 Would press da heart`;
-    break;
-    case (number >= 501 && number <= 1000):
-      return `${randomElement(cheekyComments)}: 13/10🤘 Would love all things`;
-    break;
-    case (number >= 1001 && number <= 2000):
-      return `${randomElement(cheekyComments)}: 14/10 🦄 Hundo percent, would DirectMessage`;
-    break;
-    default:
-      return `${randomElement(cheekyComments)}: 15/10 💥🎉 Would find you and discuss IRL`;
+// return the number for 0-10
+// return 11-15 for 11-100
+// return base 10 log over 100
+// this helps us space out the high ratings
+function calculateRatingTier(number) {
+  var ratingTier;
+  if (number === 0) {
+    ratingTier = 0;
+  } else if (number >= 1 && number <= 10) {
+    ratingTier = number;
+  } else if (number >= 11 && number <= 19) {
+    ratingTier = 11;
+  } else if (number >= 12 && number <= 39) {
+    ratingTier = 12;
+  } else if (number >= 40 && number <= 59) {
+    ratingTier = 13;
+  } else if (number >= 60 && number <= 79) {
+    ratingTier = 14;
+  } else if (number >= 80 && number <= 99) {
+    ratingTier = 15;
+  } else {
+    ratingTier = 15 - 1 + Math.floor(Math.log10(number));
   }
+  return ratingTier;
 }

@@ -65,9 +65,57 @@ body {
 }
 
 .tweet-rating {
-  margin-top: 5px;
-  padding-top: 10px;
-  border-top: 1px dashed #eee;
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+}
+
+.rating-row {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+}
+
+.tweet-rating .emoji-rating {
+  position: absolute;
+  right: 46px;
+  bottom: -4px;
+  height: 32px;
+  z-index: 2;
+  font-size: 18px;
+}
+
+.tweet-rating .emoji-bubble {
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
+  height: 32px;
+  z-index: 1;
+}
+
+.tweet-rating .rating-text {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+}
+
+.tweet-rating .bird {
+  position: absolute;
+}
+
+.bird.bird-george {
+  height: 26px;
+  right: 0;
+}
+
+.bird.bird-elisabeth {
+  height: 36px;
+  right: 0;
+}
+
+.bird.bird-hector {
+  height: 36px;
+  right: 5px;
 }
 
 .twitter-icon {
