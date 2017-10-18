@@ -21,15 +21,15 @@ Final step! We need a URL, so let's use the one Glitch auto-generates for us lik
 
 After creation, you'll see a summary of your applciation credentials. The two things to note here are your default Read/Write application settings and your keys and access tokens.
 
-![Twitter Application Success](public/images/twitterApplicationSuccess.png "Twitter Application Success")
+![Twitter Application Success](https://we-rate-tweets.glitch.me/images/twitterApplicationSuccess.png "Twitter Application Success")
 
 For this applicaiton, we really only need to read tweets, so let's change that.
 
-![Twitter Application Success](public/images/twitterRWAccess.png "Twitter Read Write Access")
+![Twitter Application Success](https://we-rate-tweets.glitch.me/images/twitterRWAccess.png "Twitter Read Write Access")
 
 Navigate to the Keys and Access Tokens tab and you'll be grabbing _four_ keys for your `.env` file. Before grabbing your keys, you'll need to create an access token (just with one click!).
 
-![Twitter Env Keys](public/images/twitterKeysWithReadOnly.png "Twitter Keys")
+![Twitter Env Keys](https://we-rate-tweets.glitch.me/images/twitterKeysWithReadOnly.png "Twitter Keys")
 
 You can now grab all the keys from this page you need and put them into your project.
 
@@ -43,11 +43,11 @@ You're all set from the Twitter side! Let's move onto Algolia.
 ## Sign up for an Algolia account 🔎
 We have a few more steps and then we can begin! First, we'll bring you to our sign up page, where you can create a new account with your own password, or use GitHub or Google authentication.
 
-![Algolia Signup](public/images/algoliaSignupGlitchGitHubOauthSmall.png "Algolia Signup")
+![Algolia Signup](https://we-rate-tweets.glitch.me/images/algoliaSignupGlitchGitHubOauthSmall.png "Algolia Signup")
 
 Once you have successfully signed in, you'll see your dashboard! Navigate to your API Keys on the left hand side of the screen, you'll be grabbing _three_ keys for your `.env` file.
 
-![Algolia API keys](public/images/algoliaAPIkeysMarkedUp.png "Algolia API keys")
+![Algolia API keys](https://we-rate-tweets.glitch.me/images/algoliaAPIkeysMarkedUp.png "Algolia API keys")
 
 Application ID should go with your `ALGOLIA_APP_ID`
 Search-Only API Key should go with your `ALGOLIA_SEARCH_API_KEY`
