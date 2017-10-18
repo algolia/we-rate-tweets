@@ -114,7 +114,7 @@ input {
 }
 
 .ais-search-box--reset svg {
-  fill: blue;
+  fill: #ccc;
 }
 
 /* copied from the instantsearch theme located at
