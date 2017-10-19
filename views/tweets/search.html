@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>We Rate Tweets - Search @{{ request.username }}'s tweets with Algolia and Glitch</title>
-    <meta name="description" content="See {{ request.username }}'s most popular tweets and learn how to use the Algolia and Twitter APIs.">
+    {% set title = ["We Rate Tweets - Search @", request.username, "'s tweets with Algolia and Glitch"] | join %}
+    {% set description = "See their most popular tweets and learn how to use the Algolia and Twitter APIs." %}
     {% include "partials/header.html" %}
     <link rel="canonical" href="/{{ request.username }}/tweets/search"></link>
   </head>
