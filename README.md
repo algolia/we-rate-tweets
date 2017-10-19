@@ -2,17 +2,20 @@
 
 We Rate Tweets is a search-as-you-type experience for exploring your twitter timeline. Tweets are sorted by their total of retweets and likes, not chronologically. This makes it possible to see your most popular tweets at a glance, while increasing the chance that the first search result is the one you were looking for.
 
-Tweets are fetched from the twitter API and then indexed with Algolia. We Rate Tweets is a good way to learn how Algolia works, including how data is structured, indexed, and made searchable on the UI. All of the code is open source, commented for readability, and ready for you to remix. You can give it a test drive before you remix by visiting [https://we-rate-tweets.glitch.me](https://we-rate-tweets.glitch.me).
+Tweets are fetched from the twitter API and then indexed with Algolia. We Rate Tweets is a good way to learn how Algolia works, including how data is structured, indexed, and made searchable on the UI. All of the code is open source, commented for readability, and ready for you to remix. You can give it a test drive before you remix by visiting [we-rate-tweets.glitch.me](https://we-rate-tweets.glitch.me).
 
 # How to Remix 🎏
 
-First, hit that sweet, sweet remix link. Your remix won't have environment variables yet, but that's ok, it will soon!
+First, hit that sweet, sweet **Remix this** link above. Your remix won't have environment variables yet, but that's ok, it will soon! If you load it in the browser, you'll see this screen:
+
+![No env vars](https://cl.ly/080f353I072p/Screenshot%202017-10-18%2018.40.15.png "No env vars yet")
+
 
 ## Create a new Twitter API application 🐦
 
 Click here to go to the [new twitter application page](https://apps.twitter.com/app/new). Once you're there:
 
-![Twitter Signup](public/images/twitterSignUp.png "Twitter Signup")
+![Twitter Signup](https://cl.ly/1W0F2m2s2l1r/twitterSignUp.png "Twitter Signup")
 
 Fill in the application's name and description. They can be as simple as `sampleTwitterGlitchApplication` and `This app makes tweets searchable with Algolia`. In the URL field, use the one Glitch auto-generated for your remix, which will look like `https://dazzling-brick.glitch.me`. Be sure to grab the `https://` prefix!
 
@@ -22,11 +25,11 @@ After creation, you'll see a page with the credentials for your new application.
 
 We recommend that you change the access level to "Read" as that's the only scope needed.
 
-![Twitter Application Success](public/images/twitterRWAccess.png "Twitter Read Write Access")
+![Twitter Application Success](https://cl.ly/3k1U242K3f3I/twitterRWAcess.png "Twitter Read Write Access")
 
 Navigate to the *Keys and Access Tokens* tab create an access token. Then grab the _four_ keys shown and prepare to copy them to your Glitch app's your `.env` file.
 
-![Twitter Env Keys](public/images/twitterKeysWithReadOnly.png "Twitter Keys")
+![Twitter Env Keys](https://cl.ly/2l1G0Y2R1E0F/twitterKeysWithReadOnly.png "Twitter Keys")
 
 Here's how to map the keys into the `.env` file:
 
@@ -41,13 +44,13 @@ That's it for Twitter! Let's move on to Algolia.
 
 If you don't already have an Algolia account, you can [sign up here](https://www.algolia.com/cc/glitch) and redeem a special offer for the Glitch community.
 
-![Algolia Signup](public/images/algoliaSignupGlitchGitHubOauthSmall.png "Algolia Signup")
+![Algolia Signup](https://cl.ly/3D2J003f3i2J/algoliaSignupGlitchGitHubOauthSmall.png "Algolia Signup")
 
 During the sign up process, you'll create a new Algolia application. If you were already an Algolia user, you can create a new application from inside the Algolia Dashboard.
 
 Once you have your new application, navigate to your API Keys on the left hand side of the screen. Copy _three_ values into your Glitch application's `.env` file.
 
-![Algolia API keys](public/images/algoliaAPIkeysMarkedUp.png "Algolia API keys")
+![Algolia API keys](https://cl.ly/3D2J003f3i2J/algoliaSignupGlitchGitHubOauthSmall.png "Algolia API keys")
 
 Here's how to map the keys into the `.env` file:
 
@@ -55,9 +58,13 @@ Here's how to map the keys into the `.env` file:
 - `ALGOLIA_SEARCH_API_KEY` - Search-only API key
 - `ALGOLIA_ADMIN_API_KEY` - Admin API key
 
-Once Glitch has applied your changes, you can visit the live version of your app and see the first page. Assuming everything is configured correctly, you can authenticate with Twitter and start searching your tweets!
+Once Glitch has applied your changes, you can visit the live version of your app and see the first page.
 
-The tweets will be stored in your Algolia application inside of an index called `tweets-username` where `username` is your twitter account handle.
+![login page](https://cl.ly/1N3M2o3T0l11/Screenshot%202017-10-19%2017.23.35.png "login page")
+
+Assuming everything is configured correctly, you can authenticate with Twitter and start indexing and searching your tweets!
+
+Note: tweets will be stored in your Algolia application inside of an index called `tweets-username` where `username` is your twitter account handle.
 
 ## Remix Possibilities
 
@@ -70,6 +77,15 @@ Change the value of the `NUMBER_OF_TWEETS_TO_FETCH` environment variable. The ma
 ### Searching other users' timelines
 
 In your remix, you can index timelines for users other than the logged in user, just set `ALLOW_INDEXING_OF_OTHER_TIMELINES` to `1`. An input box will appear near the bottom of the tweets search page that will let you index and search the tweets of other users.
+
+### Relevance
+
+Explore the Algolia dashboard to see how relevance is configured, and you can also make changes.
+
+![Algolia dashboard relevance](https://cl.ly/0E0J2B100q0m/Screenshot%202017-10-19%2017.27.06.png "Algolia dashboard relevance")
+
+If you'd like tweets to be ranked purely by retweets or purely by likes, you can do that. You can also choose to rank chronologically. The [Algolia documentation](https://algolia.com/docs) will be your best friend and you explore the options.
+
 
 ### Rating emojis
 
