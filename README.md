@@ -120,3 +120,4 @@ var ratemoji = {
 ## Getting help
 
 If you run into any issues using or remixing this app, let us know on [Algolia's Community Forum](https://discourse.algolia.com/) and we'll be happy to help. Happy remixing!
+
