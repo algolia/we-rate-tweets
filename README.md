@@ -21,7 +21,7 @@ Fill in the application's name and description. They can be as simple as `sample
 
 After creation, you'll see a page with the credentials for your new application.
 
-![Twitter Application Success](public/images/twitterApplicationSuccess.png "Twitter Application Success")
+![Twitter Application Success](https://cl.ly/2d1d1y2U3P0O/twitterApplicationSuccess.png "Twitter Application Success")
 
 We recommend that you change the access level to "Read" as that's the only scope needed.
 
@@ -120,4 +120,3 @@ var ratemoji = {
 ## Getting help
 
 If you run into any issues using or remixing this app, let us know on [Algolia's Community Forum](https://discourse.algolia.com/) and we'll be happy to help. Happy remixing!
-
