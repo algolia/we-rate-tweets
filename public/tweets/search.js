@@ -45,7 +45,7 @@ search.addWidget(
     container: '#hits-container',
     cssClasses: {
       root: 'list-none flex-container flex-dir-row p-small no-p-l no-p-r',
-      item: 'flex-it-3 p-small'
+      item: 'tweet-item p-small'
     },
     templates: {
       // this template is shown when there are no results
