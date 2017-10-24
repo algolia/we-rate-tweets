@@ -162,6 +162,19 @@ input {
   max-width: inherit;
 }
 
+@media (max-width: 600px) {
+  .ais-search-box {
+    max-width: inherit;
+    padding: 0px 10px 0px 10px;
+  }
+  .ais-stats--time {
+    padding-right: 10px;
+  }
+  .search-by-algolia-logo {
+    padding-right: 10px;
+  }
+}
+
 .ais-hits em {
   background: yellow;
   font-style: normal;
