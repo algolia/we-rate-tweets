@@ -209,3 +209,23 @@ input {
 /* tweak the theme to avoid decoration on active pages*/
 .ais-pagination--item__active .ais-pagination--link {
   text-decoration: none; }
+
+/* CSS HACK */
+
+/* full screen */
+.tweet-item {
+  flex: 0 1 33%;
+}
+
+/* half screen or tablet */
+@media (max-width: 1000px ) {
+  .tweet-item {
+      flex: 0 1 50%
+  }
+}
+/* mobile */
+@media (max-width: 600px) {
+  .tweet-item {
+    flex: 0 1 100%;
+  }
+}
