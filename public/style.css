@@ -40,8 +40,15 @@ body {
 
 .we-rate-tweets-logo {
   margin: 0 auto -20px;
+  width: 600px;
 }
 
+@media (max-width: 600px) {
+  .we-rate-tweets-logo {
+    margin: 0 auto -20px;
+    width: 300px;
+  }
+}
 .algolia-mark {
   position: absolute;
   top: 25px;
