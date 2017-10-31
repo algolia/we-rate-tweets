@@ -50,7 +50,7 @@ During the sign up process, you'll create a new Algolia application. If you were
 
 Once you have your new application, navigate to your API Keys on the left hand side of the screen. Copy _three_ values into your Glitch application's `.env` file.
 
-![Algolia API keys](https://cl.ly/3D2J003f3i2J/algoliaSignupGlitchGitHubOauthSmall.png "Algolia API keys")
+![Algolia API keys](https://cl.ly/0f1J0C0r032Q/algoliaAPIkeysMarkedUp.png "Algolia API keys")
 
 Here's how to map the keys into the `.env` file:
 
