@@ -248,4 +248,10 @@ input {
   .tweet-item {
     flex: 0 1 100%;
   }
+  .wrt-body {
+    padding: 0px 15px 0px 15px;
+  }
+  .fixed-footer-container {
+    display: none;
+  }
 }

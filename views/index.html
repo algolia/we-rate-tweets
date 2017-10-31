@@ -43,60 +43,62 @@
         <img width="400" src="/images/pippa-we-rate-dogs.png">
       </a>
     </p>
-    <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
-    <h3 class="m600 m-l-r-auto">What is <em>We Rate Tweets?</em></h3>
-    <p class="m600 m-l-r-auto no-padding">
-      <em>We Rate Tweets</em> is a search-as-you-type experience for exploring your twitter timeline.
-      Tweets are sorted by their total of retweets and likes, not chronologically. This makes it possible to see
-      your most popular tweets at a glance, while increasing the chance that the first search result is the one you were looking for.
-      <br><br>
-      In the spirit of We Rate Dogs, a rating on a scale of 0-10+ is also applied to each tweet, using a
-      graduated scale based on the total number of likes and retweets it has.
-      Higher ratings are much harder to receive ;)
-      <br><br>
-      It was built to scratch our own itch of wanting a faster tweet search,
-      and also to show developers how a fully-featured search application can be built and deployed
-      in just a few hours using <a href="https://www.algolia.com/">Algolia</a>
-      and <a href="https://glitch.com/">Glitch</a>.
-    </p>
-    <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
-    <h3 class="m600 m-l-r-auto">What is 'Remix on Glitch' and why should I do it?</h3>
-    <p class="m600 m-l-r-auto no-padding">
-      A remix is like a Github fork but for live code.
-      Each remix gets its own unique URL and set of secure environment variables.
-      <a href="https://glitch.com/faq#remix">Remixing a Glitch app</a> creates a complete
-      working copy that you can start to edit instantly.
-      <br><br>
-      There are several benefits to remixing <em>We Rate Tweets</em>, which include
-      indexing a larger number of your tweets, indexing any public twitter timeline,
-      and full customization of the look and feel, including the emojis are used
-      for rating the tweets.
-      <br><br>
-      To start remixing, click the <strong>Remix on Glitch</strong> button in the top
-      right-hand corner of the screen and follow the detailed guide
-      in your new project's <code>README.md</code> file.
-    </p>
-    <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
-    <h3 class="m600 m-l-r-auto">How many tweets can I search?</h3>
-    <p class="m600 m-l-r-auto no-padding">
-      The <a href="https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-user_timeline">twitter user timeline API</a>
-      provides access to a user's last 3,200 tweets, fetchable in chunks of up to 200 at a time.
-      For performance, storage and API rate limiting reasons,
-      <em>We Rate Tweets</em> only fetches a user's last 500 by default.
-      The real number of tweets indexed will be less because retweets are not used.
-      <br><br>
-      This is one of the advantages of remixing the app - in your remix you can
-      change the <code>NUMBER_OF_TWEETS_TO_FETCH</code> environment variable to a
-      higher number than the default of 500. Algolia's <a href="https://www.algolia.com/pricing">Community Plan</a>
-      gives you 10,000 records for free, which is plenty to accommodate all of the tweets you
-      can get from twitter, even as you come back to reindex your new tweets.
-    </p>
-    <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
-    <h3 class="m600 m-l-r-auto">Can I see an example of the search first?</h3>
-    <p class="m600 m-l-r-auto no-padding">
-      Yes! Try searching <a href="/algolia/tweets/search">@algolia's tweets</a>
-      or <a href="/glitch/tweets/search">@glitch's tweets</a>.
-    </p>
+    <div class="wrt-body">
+      <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
+      <h3 class="m600 m-l-r-auto">What is <em>We Rate Tweets?</em></h3>
+      <p class="m600 m-l-r-auto no-padding">
+        <em>We Rate Tweets</em> is a search-as-you-type experience for exploring your twitter timeline.
+        Tweets are sorted by their total of retweets and likes, not chronologically. This makes it possible to see
+        your most popular tweets at a glance, while increasing the chance that the first search result is the one you were looking for.
+        <br><br>
+        In the spirit of We Rate Dogs, a rating on a scale of 0-10+ is also applied to each tweet, using a
+        graduated scale based on the total number of likes and retweets it has.
+        Higher ratings are much harder to receive ;)
+        <br><br>
+        It was built to scratch our own itch of wanting a faster tweet search,
+        and also to show developers how a fully-featured search application can be built and deployed
+        in just a few hours using <a href="https://www.algolia.com/">Algolia</a>
+        and <a href="https://glitch.com/">Glitch</a>.
+      </p>
+      <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
+      <h3 class="m600 m-l-r-auto">What is 'Remix on Glitch' and why should I do it?</h3>
+      <p class="m600 m-l-r-auto no-padding">
+        A remix is like a Github fork but for live code.
+        Each remix gets its own unique URL and set of secure environment variables.
+        <a href="https://glitch.com/faq#remix">Remixing a Glitch app</a> creates a complete
+        working copy that you can start to edit instantly.
+        <br><br>
+        There are several benefits to remixing <em>We Rate Tweets</em>, which include
+        indexing a larger number of your tweets, indexing any public twitter timeline,
+        and full customization of the look and feel, including the emojis are used
+        for rating the tweets.
+        <br><br>
+        To start remixing, click the <strong>Remix on Glitch</strong> button in the top
+        right-hand corner of the screen and follow the detailed guide
+        in your new project's <code>README.md</code> file.
+      </p>
+      <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
+      <h3 class="m600 m-l-r-auto">How many tweets can I search?</h3>
+      <p class="m600 m-l-r-auto no-padding">
+        The <a href="https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-user_timeline">twitter user timeline API</a>
+        provides access to a user's last 3,200 tweets, fetchable in chunks of up to 200 at a time.
+        For performance, storage and API rate limiting reasons,
+        <em>We Rate Tweets</em> only fetches a user's last 500 by default.
+        The real number of tweets indexed will be less because retweets are not used.
+        <br><br>
+        This is one of the advantages of remixing the app - in your remix you can
+        change the <code>NUMBER_OF_TWEETS_TO_FETCH</code> environment variable to a
+        higher number than the default of 500. Algolia's <a href="https://www.algolia.com/pricing">Community Plan</a>
+        gives you 10,000 records for free, which is plenty to accommodate all of the tweets you
+        can get from twitter, even as you come back to reindex your new tweets.
+      </p>
+      <h2 class="text-center no-padding">&middot;&middot;&middot;</h2>
+      <h3 class="m600 m-l-r-auto">Can I see an example of the search first?</h3>
+      <p class="m600 m-l-r-auto no-padding">
+        Yes! Try searching <a href="/algolia/tweets/search">@algolia's tweets</a>
+        or <a href="/glitch/tweets/search">@glitch's tweets</a>.
+      </p>
+    </div>
     <span class="spacer120"></span>
     {% include "partials/footer.html" %}
   </body>
