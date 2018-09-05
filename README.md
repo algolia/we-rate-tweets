@@ -13,23 +13,27 @@ First, hit that sweet, sweet **Remix this** link above. Your remix won't have en
 
 ## Create a new Twitter API application 🐦
 
-Click here to go to the [new twitter application page](https://apps.twitter.com/app/new). Once you're there:
+Before you're able to create a new Twitter app you'll need to either already have a Twitter developer account, or you can [apply for a developer account](https://developer.twitter.com/en/apply/user).
 
-![Twitter Signup](https://cl.ly/1W0F2m2s2l1r/twitterSignUp.png "Twitter Signup")
+Once your Twitter developer account is active, click here to go to the [new twitter application page](https://developer.twitter.com/en/apps/create). Once you're there:
+
+![Twitter Signup](https://www.dropbox.com/s/jybr617pg59uhse/twitterSignUp.png?dl=1 "Twitter Signup")
 
 Fill in the application's name and description. They can be as simple as `sampleTwitterGlitchApplication` and `This app makes tweets searchable with Algolia`. In the URL field, use the one Glitch auto-generated for your remix, which will look like `https://dazzling-brick.glitch.me`. Be sure to grab the `https://` prefix!
 
-After creation, you'll see a page with the credentials for your new application.
+You will also need check the box to "Allow this application to be used to sign in with Twitter". This will allow our app to access the signed in user's Tweets and will force the Callback URL to be filled in. The Callback URL will start with the URL that Glitch auto-generated for your remix, followed by `/login/twitter/return`.
 
-![Twitter Application Success](https://cl.ly/2d1d1y2U3P0O/twitterApplicationSuccess.png "Twitter Application Success")
+After creation, you'll see a summary page of your new application with tabs at the top for "*eys and Access Tokens* and *Permissions*.
 
-We recommend that you change the access level to "Read" as that's the only scope needed.
+![Twitter Application Success](https://www.dropbox.com/s/kv2opcua7p5djia/twitterApplicationSuccess.png?dl=1 "Twitter Application Success")
 
-![Twitter Application Success](https://cl.ly/3k1U242K3f3I/twitterRWAcess.png "Twitter Read Write Access")
+We recommend that you navigate to the *Permissions* tab and change the access level to "Read" as that's the only scope needed.
 
-Navigate to the *Keys and Access Tokens* tab create an access token. Then grab the _four_ keys shown and prepare to copy them to your Glitch app's your `.env` file.
+![Twitter Read Write Access](https://www.dropbox.com/s/uf98jziom2tbu9q/twitterRWAcess.png?dl=1 "Twitter Read Write Access")
 
-![Twitter Env Keys](https://cl.ly/2l1G0Y2R1E0F/twitterKeysWithReadOnly.png "Twitter Keys")
+Finally, navigate to the *Keys and Access Tokens* tab create an access token. Then grab the _four_ keys shown (you will need to click "Create" under the secret token section) and prepare to copy them to your Glitch app's `.env` file.
+
+![Twitter Env Keys](https://www.dropbox.com/s/rcscz6jnvf9kn2f/twitterKeysWithReadOnly.png?dl=1 "Twitter Keys")
 
 Here's how to map the keys into the `.env` file:
 
@@ -66,17 +70,17 @@ Assuming everything is configured correctly, you can authenticate with Twitter a
 
 Note: tweets will be stored in your Algolia application inside of an index called `tweets-username` where `username` is your twitter account handle.
 
-## Remix Possibilities
+## Remix possibilities
 
-There are several benefits to remixing We Rate Tweets, which include indexing a larger number of tweets, indexing any public twitter timeline, and full customization of the look and feel, including the emojis are used for rating the tweets.
+There are several benefits to remixing We Rate Tweets, which include indexing a larger number of tweets, indexing any public Twitter timeline, and full customization of the look and feel, including the emojis that are used for rating the tweets.
 
 ### Amount of tweets indexed
 
-Change the value of the `NUMBER_OF_TWEETS_TO_FETCH` environment variable. The maximum value that tweets that twitter lets you fetch historically for a user is 3,200. Note that the real amount that are indexed will be lower, as retweets are not included.
+You can change the value of the `NUMBER_OF_TWEETS_TO_FETCH` environment variable. The maximum value of tweets that Twitter lets you fetch historically for a user is 3,200. Note that the real amount  indexed will be lower, since retweets are not included.
 
 ### Searching other users' timelines
 
-In your remix, you can index timelines for users other than the logged in user, just set `ALLOW_INDEXING_OF_OTHER_TIMELINES` to `1`. An input box will appear near the bottom of the tweets search page that will let you index and search the tweets of other users.
+In your remix, you can index timelines for users other than the logged in user, just set the environment variable `ALLOW_INDEXING_OF_OTHER_TIMELINES` to `1`. An input box will appear near the bottom of the tweets search page that will let you index and search the tweets of other users.
 
 ### Relevance
 
@@ -84,7 +88,7 @@ Explore the Algolia dashboard to see how relevance is configured, and you can al
 
 ![Algolia dashboard relevance](https://cl.ly/0E0J2B100q0m/Screenshot%202017-10-19%2017.27.06.png "Algolia dashboard relevance")
 
-If you'd like tweets to be ranked purely by retweets or purely by likes, you can do that. You can also choose to rank chronologically. The [Algolia documentation](https://algolia.com/docs) will be your best friend and you explore the options.
+If you'd like tweets to be ranked purely by retweets or purely by likes, you can do that. You can also choose to rank chronologically. The [Algolia documentation](https://algolia.com/docs) will be your best friend as you explore the options.
 
 
 ### Rating emojis
