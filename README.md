@@ -23,7 +23,7 @@ Fill in the application's name and description. They can be as simple as `sample
 
 You will also need check the box to "Allow this application to be used to sign in with Twitter". This will allow our app to access the signed in user's Tweets and will force the Callback URL to be filled in. The Callback URL will start with the URL that Glitch auto-generated for your remix, followed by `/login/twitter/return`.
 
-After creation, you'll see a summary page of your new application with tabs at the top for "*eys and Access Tokens* and *Permissions*.
+After creation, you'll see a summary page of your new application with tabs at the top for *Keys and tokens* and *Permissions*.
 
 ![Twitter Application Success](https://www.dropbox.com/s/kv2opcua7p5djia/twitterApplicationSuccess.png?dl=1 "Twitter Application Success")
 
@@ -31,7 +31,7 @@ We recommend that you navigate to the *Permissions* tab and change the access le
 
 ![Twitter Read Write Access](https://www.dropbox.com/s/uf98jziom2tbu9q/twitterRWAcess.png?dl=1 "Twitter Read Write Access")
 
-Finally, navigate to the *Keys and Access Tokens* tab create an access token. Then grab the _four_ keys shown (you will need to click "Create" under the secret token section) and prepare to copy them to your Glitch app's `.env` file.
+Finally, navigate to the *Keys and tokens* tab create an access token. Then grab the _four_ keys shown (you will need to click "Create" under the secret token section) and prepare to copy them to your Glitch app's `.env` file.
 
 ![Twitter Env Keys](https://www.dropbox.com/s/rcscz6jnvf9kn2f/twitterKeysWithReadOnly.png?dl=1 "Twitter Keys")
 
