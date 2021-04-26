@@ -22,7 +22,7 @@
     "twitter": "^1.7.1"
   },
   "engines": {
-    "node": "6.9.1"
+    "node": ">=6.9.1"
   },
   "keywords": [
     "node",
